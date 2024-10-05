@@ -1,0 +1,670 @@
+# Copyright (C) 2023 Business Reviews
+# This file is distributed under the same license as the Business Reviews package.
+msgid ""
+msgstr ""
+"Project-Id-Version: Business Reviews\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2023-11-22 04:35+0000\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. translators: %s template
+#: ../app/Helpers/Functions.php:88, ../dist/business-reviews-wp/app/Helpers/Functions.php:88
+msgid "%s does not exist."
+msgstr ""
+
+#: ../app/Hooks/Backend.php:15, ../app/Controllers/Admin/AdminSettings.php:24, ../app/Controllers/Admin/AdminSettings.php:25, ../app/Controllers/Admin/Meta/AddMetaBox.php:142, ../dist/business-reviews-wp/app/Hooks/Backend.php:15, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:24, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:25, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:142
+msgid "Settings"
+msgstr ""
+
+#: ../app/Hooks/Backend.php:16, ../dist/business-reviews-wp/app/Hooks/Backend.php:16
+msgid "Demo"
+msgstr ""
+
+#: ../app/Hooks/Backend.php:17, ../app/Controllers/Admin/Meta/AddMetaBox.php:50, ../app/Controllers/Admin/Meta/AddMetaBox.php:89, ../dist/business-reviews-wp/app/Hooks/Backend.php:17, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:50, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:89
+msgid "Documentation"
+msgstr ""
+
+#: ../app/Hooks/Backend.php:21, ../dist/business-reviews-wp/app/Hooks/Backend.php:21
+msgid "Get Pro"
+msgstr ""
+
+#: ../app/Models/Api.php:194, ../app/Models/Api.php:170, ../dist/business-reviews-wp/app/Models/Api.php:191, ../dist/business-reviews-wp/app/Models/Api.php:167
+msgid "API key does not match"
+msgstr ""
+
+#: ../app/Models/Api.php:236, ../dist/business-reviews-wp/app/Models/Api.php:233
+msgid "Please add a yelp api key from settings"
+msgstr ""
+
+#: ../app/Models/Api.php:239, ../dist/business-reviews-wp/app/Models/Api.php:236
+msgid "Please add a yelp business url from settings"
+msgstr ""
+
+#: ../app/Models/Api.php:229, ../dist/business-reviews-wp/app/Models/Api.php:226
+msgid "Please add a facebook page access token from settings"
+msgstr ""
+
+#: ../app/Models/Api.php:232, ../dist/business-reviews-wp/app/Models/Api.php:229
+msgid "Please add a facebook page id from settings"
+msgstr ""
+
+#: ../app/Models/Api.php:222, ../dist/business-reviews-wp/app/Models/Api.php:219
+msgid "Please add a google api key from settings"
+msgstr ""
+
+#: ../app/Models/Api.php:225, ../dist/business-reviews-wp/app/Models/Api.php:222
+msgid "Please add a google place id from settings"
+msgstr ""
+
+#: ../app/Models/BusinessInfo.php:128, ../dist/business-reviews-wp/app/Models/BusinessInfo.php:128
+msgid "Write A Review"
+msgstr ""
+
+#: ../app/Models/Field.php:241, ../dist/business-reviews-wp/app/Models/Field.php:241
+msgid "Color"
+msgstr ""
+
+#: ../app/Models/Field.php:249, ../dist/business-reviews-wp/app/Models/Field.php:249
+msgid "Font size"
+msgstr ""
+
+#: ../app/Models/Field.php:252, ../app/Models/Field.php:266, ../app/Models/Field.php:281, ../dist/business-reviews-wp/app/Models/Field.php:252, ../dist/business-reviews-wp/app/Models/Field.php:266, ../dist/business-reviews-wp/app/Models/Field.php:281
+msgid "Default"
+msgstr ""
+
+#: ../app/Models/Field.php:264, ../dist/business-reviews-wp/app/Models/Field.php:264
+msgid "Weight"
+msgstr ""
+
+#: ../app/Models/Field.php:279, ../dist/business-reviews-wp/app/Models/Field.php:279
+msgid "Alignment"
+msgstr ""
+
+#: ../app/Models/Field.php:306, ../dist/business-reviews-wp/app/Models/Field.php:306
+msgid "Left"
+msgstr ""
+
+#: ../app/Models/Field.php:307, ../dist/business-reviews-wp/app/Models/Field.php:307
+msgid "Right"
+msgstr ""
+
+#: ../app/Models/Field.php:308, ../dist/business-reviews-wp/app/Models/Field.php:308
+msgid "Center"
+msgstr ""
+
+#: ../app/Models/Field.php:309, ../dist/business-reviews-wp/app/Models/Field.php:309
+msgid "Justify"
+msgstr ""
+
+#: ../app/Models/Field.php:315, ../dist/business-reviews-wp/app/Models/Field.php:315
+msgid "Normal"
+msgstr ""
+
+#: ../app/Models/Field.php:316, ../dist/business-reviews-wp/app/Models/Field.php:316
+msgid "Bold"
+msgstr ""
+
+#: ../app/Models/Field.php:317, ../dist/business-reviews-wp/app/Models/Field.php:317
+msgid "Bolder"
+msgstr ""
+
+#: ../app/Models/Field.php:318, ../dist/business-reviews-wp/app/Models/Field.php:318
+msgid "Lighter"
+msgstr ""
+
+#: ../app/Models/Field.php:319, ../dist/business-reviews-wp/app/Models/Field.php:319
+msgid "Inherit"
+msgstr ""
+
+#: ../app/Models/Field.php:320, ../dist/business-reviews-wp/app/Models/Field.php:320
+msgid "Initial"
+msgstr ""
+
+#: ../app/Models/Field.php:321, ../dist/business-reviews-wp/app/Models/Field.php:321
+msgid "Unset"
+msgstr ""
+
+#: ../app/Models/Review.php:199, ../dist/business-reviews-wp/app/Models/Review.php:199
+msgid " ago"
+msgstr ""
+
+#: ../app/Models/SettingsAPI.php:86, ../app/Controllers/Admin/AdminSettings.php:61, ../dist/business-reviews-wp/app/Models/SettingsAPI.php:86, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:61
+msgid "Action failed. Please refresh the page and retry."
+msgstr ""
+
+#: ../app/Models/SettingsAPI.php:102, ../app/Controllers/Admin/AdminSettings.php:66, ../dist/business-reviews-wp/app/Models/SettingsAPI.php:102, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:66
+msgid "Your settings have been saved."
+msgstr ""
+
+#: ../app/Models/SettingsAPI.php:572, ../dist/business-reviews-wp/app/Models/SettingsAPI.php:572
+msgid "Add Image"
+msgstr ""
+
+#: ../app/Models/SettingsAPI.php:574, ../dist/business-reviews-wp/app/Models/SettingsAPI.php:574
+msgid "Remove Image"
+msgstr ""
+
+#: ../app/Models/SettingsAPI.php:1131, ../dist/business-reviews-wp/app/Models/SettingsAPI.php:1131
+msgid "Select all"
+msgstr ""
+
+#: ../app/Models/SettingsAPI.php:1133, ../dist/business-reviews-wp/app/Models/SettingsAPI.php:1133
+msgid "Select none"
+msgstr ""
+
+#: ../app/Models/SettingsAPI.php:1337, ../dist/business-reviews-wp/app/Models/SettingsAPI.php:1337
+msgid "Select one"
+msgstr ""
+
+#: ../app/Widgets/BusinessReview.php:15, ../app/Widgets/BusinessReview.php:52, ../dist/business-reviews-wp/app/Widgets/BusinessReview.php:15, ../dist/business-reviews-wp/app/Widgets/BusinessReview.php:52
+msgid "Business Review"
+msgstr ""
+
+#: ../app/Widgets/BusinessReview.php:18, ../dist/business-reviews-wp/app/Widgets/BusinessReview.php:18
+msgid "A list of Business Review."
+msgstr ""
+
+#: ../app/Controllers/Admin/AdminSettings.php:76, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:76
+msgid "General"
+msgstr ""
+
+#: ../app/Controllers/Admin/AdminSettings.php:77, ../app/Controllers/Admin/Meta/MetaOptions.php:357, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:77, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:357
+msgid "Google"
+msgstr ""
+
+#: ../app/Controllers/Admin/AdminSettings.php:78, ../app/Controllers/Admin/Meta/MetaOptions.php:358, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:78, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:358
+msgid "Facebook"
+msgstr ""
+
+#: ../app/Controllers/Admin/AdminSettings.php:79, ../app/Controllers/Admin/Meta/MetaOptions.php:359, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:79, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:359
+msgid "Yelp"
+msgstr ""
+
+#: ../app/Controllers/Admin/AdminSettings.php:80, ../dist/business-reviews-wp/app/Controllers/Admin/AdminSettings.php:80
+msgid "Support"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:20, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:20
+msgctxt "Post Type General Name"
+msgid "Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:21, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:21
+msgctxt "Post Type Singular Name"
+msgid "Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:22, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:22
+msgid "Business Reviews"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:23, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:23
+msgid "Parent Shortcode:"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:24, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:24
+msgid "All Shortcodes"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:25, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:25
+msgid "View Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:26, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:26
+msgid "Add New Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:27, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:27
+msgid "New Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:28, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:28
+msgid "Edit Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:29, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:29
+msgid "Update Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:30, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:30
+msgid "Search Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:31, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:31
+msgid "No google review found"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:32, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:32
+msgid "No google review found in Trash"
+msgstr ""
+
+#: ../app/Controllers/Admin/RegisterPostType.php:37, ../app/Controllers/Admin/RegisterPostType.php:38, ../app/Controllers/Admin/Meta/AddMetaBox.php:28, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:37, ../dist/business-reviews-wp/app/Controllers/Admin/RegisterPostType.php:38, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:28
+msgid "Shortcode"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:35, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:35
+msgid "Short Code Generator"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:42, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:42
+msgid "Layout Preview"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:90, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:90
+msgid "Get started by spending some time with the documentation we included step by step process with screenshots with video."
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:96, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:96
+msgid "Need Help?"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:97, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:97
+msgid "Stuck with something? Please create a"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:98, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:98
+msgid "ticket here"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:98, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:98
+msgid "or post on "
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:98, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:98
+msgid "facebook group"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:98, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:98
+msgid "For emergency case join our"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:98, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:98
+msgid "live chat"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:99, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:99
+msgid "Get Support"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:140, ../app/Controllers/Admin/Meta/MetaOptions.php:152, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:140, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:152
+msgid "Layout"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:141, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:141
+msgid "Field Selection"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:143, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/AddMetaBox.php:143
+msgid "Style"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:109, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:109
+msgid "Character"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:110, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:110
+msgid "Word"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:117, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:117
+msgid "Logo"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:118, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:118
+msgid "Name"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:119, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:119
+msgid "Average Rating"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:120, ../app/Controllers/Admin/Meta/MetaOptions.php:131, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:120, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:131
+msgid "Rating Star"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:121, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:121
+msgid "Total Review"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:122, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:122
+msgid "Powered By Logo"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:129, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:129
+msgid "Author Image"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:130, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:130
+msgid "Author Name"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:132, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:132
+msgid "Time"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:133, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:133
+msgid "Review"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:143, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:143
+msgid "Review type"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:160, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:160
+msgid "Grid column"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:169, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:169
+msgid "Pagination"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:172, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:172
+msgid "Enable"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:177, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:177
+msgid "Review per pagination"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:181, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:181
+msgid "If value of Limit setting is not blank (empty), this value should be smaller than Limit value."
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:187, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:187
+msgid "Review display limit"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:191, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:191
+msgid "Maxmum Limit"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:197, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:197
+msgid "Review text limit"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:198, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:198
+msgid "Review text limit only integer number is allowed, Leave it blank for full review."
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:204, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:204
+msgid "Review text limit type"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:211, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:211
+msgid "Read more text"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:225, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:225
+msgid "Hide business info?"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:226, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:226
+msgid "Show only reviews"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:228, ../app/Controllers/Admin/Meta/MetaOptions.php:255, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:228, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:255
+msgid "Hide"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:233, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:233
+msgid "Business info field"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:243, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:243
+msgid "Review field"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:253, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:253
+msgid "Hide see all review link?"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:267, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:267
+msgid "Open links in new window"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:268, ../app/Controllers/Admin/Meta/MetaOptions.php:275, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:268, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:275
+msgid "Disable"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:274, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:274
+msgid "Use no follow links"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:289, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:289
+msgid "Parent class for adding custom css"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:296, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:296
+msgid "Width"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:297, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:297
+msgid "Layout width, pass value like (400px, 50%)"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:302, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:302
+msgid "Author name"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:307, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:307
+msgid "Author name hover"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:314, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:314
+msgid "Google star color"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:322, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:322
+msgid "Facebook star color"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:330, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:330
+msgid "Yelp star color"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:339, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:339
+msgid "Grid One"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:340, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:340
+msgid "List One"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:347, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:347
+msgid "Column 1"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:348, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:348
+msgid "Column 2"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:349, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:349
+msgid "Column 3"
+msgstr ""
+
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:350, ../dist/business-reviews-wp/app/Controllers/Admin/Meta/MetaOptions.php:350
+msgid "Column 4"
+msgstr ""
+
+#: ../dist/business-reviews-wp/templates/partials/pagination.php:24, ../templates/partials/pagination.php:24
+msgid "Load More"
+msgstr ""
+
+#: ../dist/business-reviews-wp/templates/partials/pagination.php:29, ../templates/partials/pagination.php:29
+msgid "See All Reviews"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:10, ../views/settings/facebook-settings.php:10
+msgid "Facebook App ID"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:11, ../views/settings/facebook-settings.php:11
+msgid "If you want to use your own facebook app then you can mention the app id here. <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/configurations/facebook-settings/how-to-create-your-own-facebook-app-id\">How to create app?</a>"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:17, ../views/settings/facebook-settings.php:17
+msgid "Get Page Secrect Info"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:19, ../views/settings/facebook-settings.php:19
+msgid "<strong>Note:</strong> Please keep in mind, Facebook restricted it on localhost so try it online domain."
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:22, ../views/settings/facebook-settings.php:22
+msgid "Facebook Page Access Token"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:23, ../views/settings/facebook-settings.php:23
+msgid "To get page secrect info click on login button and give your page permission"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:29, ../views/settings/facebook-settings.php:29
+msgid "Facebook Page Name"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:35, ../views/settings/facebook-settings.php:35
+msgid "Facebook Page ID"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/facebook-settings.php:41, ../views/settings/facebook-settings.php:41
+msgid "Custom Page Image"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:10, ../views/settings/general-settings.php:10
+msgid "General Settings"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:15, ../views/settings/general-settings.php:15
+msgid "Save Data To Database"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:18, ../views/settings/general-settings.php:18
+msgid "Uncheck to get always live data"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:21, ../views/settings/general-settings.php:21
+msgid "Auto Refresh Reviews"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:22, ../views/settings/general-settings.php:22
+msgid "Auto refresh reviews every"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:27, ../views/settings/general-settings.php:27
+msgid "6 Hours"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:28, ../views/settings/general-settings.php:28
+msgid "12 Hours"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:29, ../views/settings/general-settings.php:29
+msgid "1 Day"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:30, ../views/settings/general-settings.php:30
+msgid "1 Week"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:31, ../views/settings/general-settings.php:31
+msgid "15 Days"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:32, ../views/settings/general-settings.php:32
+msgid "1 Month"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:33, ../views/settings/general-settings.php:33
+msgid "6 Months"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/general-settings.php:34, ../views/settings/general-settings.php:34
+msgid "1 Year"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/google-settings.php:10, ../views/settings/google-settings.php:10
+msgid "Google API Settings"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/google-settings.php:16, ../views/settings/google-settings.php:16
+msgid "Google Place API Key"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/google-settings.php:17, ../views/settings/google-settings.php:17
+msgid "You can get Google Place API key from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/configurations/google-settings/how-to-get-google-places-api-key\">here</a>"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/google-settings.php:23, ../views/settings/google-settings.php:23
+msgid "Google Place ID"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/google-settings.php:24, ../views/settings/google-settings.php:24
+msgid "You can get Google place id from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/configurations/google-settings/how-to-get-google-places-id\">here</a>"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/google-settings.php:30, ../views/settings/google-settings.php:30
+msgid "Custom Place Image"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/support-settings.php:37, ../views/settings/support-settings.php:37
+msgid "Online Documentation"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/support-settings.php:39, ../views/settings/support-settings.php:39
+msgid "From our online documentation, you will know how to use our pluign. <br> If you face any issue please create a ticket. We will provide you solution as soon as possible."
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/support-settings.php:41, ../views/settings/support-settings.php:41
+msgid "Online documentation"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/tools-settings.php:11, ../views/settings/tools-settings.php:11
+msgid "Licensing"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/tools-settings.php:15, ../views/settings/tools-settings.php:15
+msgid "Main plugin license key"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/yelp-settings.php:14, ../views/settings/yelp-settings.php:14
+msgid "Yelp API Settings"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/yelp-settings.php:19, ../views/settings/yelp-settings.php:19
+msgid "Yelp API Key"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/yelp-settings.php:20, ../views/settings/yelp-settings.php:20
+msgid "You can get Yelp API key from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/configurations/yelp-settings/how-to-create-yelp-api-key\">here</a>"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/yelp-settings.php:26, ../views/settings/yelp-settings.php:26
+msgid "Yelp Business URL"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/yelp-settings.php:27, ../views/settings/yelp-settings.php:27
+msgid "You can get Yelp Business URL from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/configurations/yelp-settings/how-to-get-yelp-business-url\">here</a>"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/settings/yelp-settings.php:33, ../views/settings/yelp-settings.php:33
+msgid "Custom Business Image"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/widgets/business-review.php:2, ../views/widgets/business-review.php:2
+msgid "Title:"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/widgets/business-review.php:7, ../views/widgets/business-review.php:7
+msgid "Select Shortcode:"
+msgstr ""
+
+#: ../dist/business-reviews-wp/views/widgets/business-review.php:9, ../views/widgets/business-review.php:9
+msgid "Select"
+msgstr ""

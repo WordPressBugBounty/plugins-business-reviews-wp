@@ -57,19 +57,19 @@ class Review {
             $remind_me    = esc_url( add_query_arg( $args + ['rtbr_remind_me' => '1'], self::rtbr_current_admin_url() ) );
             $rated        = esc_url( add_query_arg( $args + ['rtbr_rated' => '1'], self::rtbr_current_admin_url() ) );
             $reviewurl    = esc_url( 'https://wordpress.org/support/plugin/business-reviews-wp/reviews/?filter=5#new-post' );
-
-            printf( __( '<div class="notice rtbr-review-notice rtbr-review-notice--extended"> 
+            /* translators: %s: URL to the WordPress.org review page */
+            printf( wp_kses_post( '<div class="notice rtbr-review-notice rtbr-review-notice--extended"> 
                 <div class="rtbr-review-notice_content">
                     <h3>Enjoying Widget for Google Reviews?</h3>
                     <p>Thank you for choosing Widget for Google Reviews. If you have found our plugin useful and makes you smile, please consider giving us a 5-star rating on WordPress.org. It will help us to grow.</p>
                     <div class="rtbr-review-notice_actions">
-                        <a href="%s" class="rtbr-review-button rtbr-review-button--cta" target="_blank"><span>⭐ Yes, You Deserve It!</span></a>
-                        <a href="%s" class="rtbr-review-button rtbr-review-button--cta rtbr-review-button--outline"><span>😀 Already Rated!</span></a>
-                        <a href="%s" class="rtbr-review-button rtbr-review-button--cta rtbr-review-button--outline"><span>🔔 Remind Me Later</span></a>
-                        <a href="%s" class="rtbr-review-button rtbr-review-button--cta rtbr-review-button--error rtbr-review-button--outline"><span>😐 No Thanks</span></a>
+                        <a href="%1$s" class="rtbr-review-button rtbr-review-button--cta" target="_blank"><span>⭐ Yes, You Deserve It!</span></a>
+                        <a href="%2$s" class="rtbr-review-button rtbr-review-button--cta rtbr-review-button--outline"><span>😀 Already Rated!</span></a>
+                        <a href="%3$s" class="rtbr-review-button rtbr-review-button--cta rtbr-review-button--outline"><span>🔔 Remind Me Later</span></a>
+                        <a href="%4$s" class="rtbr-review-button rtbr-review-button--cta rtbr-review-button--error rtbr-review-button--outline"><span>😐 No Thanks</span></a>
                     </div>
                 </div> 
-            </div>' ), $reviewurl, $rated, $remind_me, $dont_disturb );
+            </div>'), esc_url( $reviewurl ), esc_url( $rated ), esc_url( $remind_me ), esc_url( $dont_disturb ) );
 
             echo '<style> 
             .rtbr-review-button--cta {
@@ -184,19 +184,19 @@ class Review {
     // remove the notice for the user if review already done or if the user does not want to
     public static function rtbr_spare_me() {
         
-        if ( ! isset( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce( $_REQUEST['_wpnonce'], 'rtbr_notice_nonce' ) ) {
+        if ( ! isset( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'rtbr_notice_nonce' ) ) {
 			return;
 		}
 
         if ( isset( $_GET['rtbr_spare_me'] ) && ! empty( $_GET['rtbr_spare_me'] ) ) {
-            $spare_me = $_GET['rtbr_spare_me'];
+            $spare_me = sanitize_text_field( wp_unslash( $_GET['rtbr_spare_me'] ) );
             if ( 1 == $spare_me ) {
                 update_option( 'rtbr_spare_me', "1" );
             }
         }
 
         if ( isset( $_GET['rtbr_remind_me'] ) && ! empty( $_GET['rtbr_remind_me'] ) ) {
-            $remind_me = $_GET['rtbr_remind_me'];
+            $remind_me = sanitize_text_field( wp_unslash( $_GET['rtbr_remind_me'] ) );
             if ( 1 == $remind_me ) {
                 $get_activation_time = strtotime( "now" );
                 update_option( 'rtbr_remind_me', $get_activation_time );
@@ -205,7 +205,7 @@ class Review {
         }
 
         if ( isset( $_GET['rtbr_rated'] ) && ! empty( $_GET['rtbr_rated'] ) ) {
-            $rtbr_rated = $_GET['rtbr_rated'];
+            $rtbr_rated = sanitize_text_field( wp_unslash( $_GET['rtbr_rated'] ) );
             if ( 1 == $rtbr_rated ) {
                 update_option( 'rtbr_rated', 'yes' );
                 update_option( 'rtbr_spare_me', "3" );

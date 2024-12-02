@@ -49,16 +49,18 @@ class AdminSettings extends SettingsAPI {
     }
 
     public function save() {
-        if ('POST' !== $_SERVER['REQUEST_METHOD']
+        if (
+            !isset($_SERVER['REQUEST_METHOD'])
+            || 'POST' !== $_SERVER['REQUEST_METHOD']
             || !isset($_REQUEST['post_type'])
             || !isset($_REQUEST['page'])
             || (isset($_REQUEST['post_type']) && rtbr()->getPostType() !== $_REQUEST['post_type'])
             || (isset($_REQUEST['rtbr_settings']) && 'rtbr_settings' !== $_REQUEST['rtbr_settings'])
-        ) {
+        ){
             return;
         }
-        if (empty($_REQUEST['_wpnonce']) || !wp_verify_nonce($_REQUEST['_wpnonce'], 'rtbr-settings')) {
-            die( __('Action failed. Please refresh the page and retry.', 'business-reviews-wp'));
+        if ( empty( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) ) || !wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'rtbr-settings')) {
+            die( esc_html__('Action failed. Please refresh the page and retry.', 'business-reviews-wp'));
         }
         $this->set_fields();
         $this->process_admin_options();
@@ -83,11 +85,16 @@ class AdminSettings extends SettingsAPI {
         // Hook to register custom tabs
         $this->tabs = apply_filters('rtbr_register_settings_tabs', $this->tabs);
         // Find the active tab
-        $this->option = $this->active_tab = isset($_GET['tab']) && array_key_exists($_GET['tab'],
-            $this->tabs) ? $_GET['tab'] : 'general'; 
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $this->option = $this->active_tab = isset($_GET['tab']) && array_key_exists( sanitize_text_field( wp_unslash( $_GET['tab'] ) ), $this->tabs )
+            ? sanitize_key( $_GET['tab'] ) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            : 'general';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
         if (!empty($this->subtabs)) {
-            $this->current_section = isset($_GET['section']) && in_array($_GET['section'],
-                array_filter(array_keys($this->subtabs))) ? $_GET['section'] : '';
+            // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+            $this->current_section = isset($_GET['section']) && in_array(sanitize_key($_GET['section']), array_filter(array_keys($this->subtabs)))
+                ? sanitize_key($_GET['section']) // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+                : '';
             $this->option = !empty($this->current_section) ? $this->option . '_' . $this->current_section : $this->active_tab . "_settings";
         } else {
             $this->option = $this->option . "_settings";
@@ -95,14 +102,14 @@ class AdminSettings extends SettingsAPI {
     }
 
     function delete_old_transient() { 
-        if ( !isset( $_REQUEST['tab'] ) ) {
+        if ( !isset( $_REQUEST['tab'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
             // when general settings save delete old data
             delete_transient('rtbr_google_reviews');
             delete_transient('rtbr_fb_reviews');
             delete_transient('rtbr_yelp_business_info');
             delete_transient('rtbr_yelp_reviews');
         } else {
-            switch ( $_REQUEST['tab'] ) {
+            switch ( $_REQUEST['tab'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
                 // when general settings save by review type delete old data
                 case "google": 
                     delete_transient('rtbr_google_reviews');

@@ -23,13 +23,12 @@ class Api {
         $place_id = rtbr()->get_options('rtbr_google_settings', 'place_id');
         $api_key = rtbr()->get_options('rtbr_google_settings', 'api_key');
         $api_url = "https://maps.googleapis.com/maps/api/place/details/json?place_id=" . $place_id . "&reviews_no_translations=true&key=" . $api_key;
-       // error_log( print_r(  $api_url , true ) . "\n\n" , 3, __DIR__ . '/log.txt' );
         $google_reviews = wp_remote_get( $api_url ); 
         if ( is_wp_error( $google_reviews ) ) {
             return [];
         }
         $google_reviews = wp_remote_retrieve_body( $google_reviews ); 
-        return json_decode( $google_reviews ); 
+        return json_decode( $google_reviews );
     }
 
     /**
@@ -57,7 +56,7 @@ class Api {
 	    if ( empty( $business_url ) ) {
 		    return [];
 	    }
-        $segments = explode('/', trim(parse_url($business_url, PHP_URL_PATH), '/'));  
+        $segments = explode('/', trim(wp_parse_url($business_url, PHP_URL_PATH), '/'));
         $review_path = ( $type == 'business_info' ) ? '' : '/reviews';
         $api_url = "https://api.yelp.com/v3/businesses/" . $segments[1] . $review_path;  
         $api_key = rtbr()->get_options('rtbr_yelp_settings', 'api_key');
@@ -87,7 +86,7 @@ class Api {
                 if ( get_transient( 'rtbr_google_reviews') ) {
                     $google_reviews = get_transient( 'rtbr_google_reviews');
                 } else {
-                    $google_reviews = $this->googleApi(); 
+                    $google_reviews = $this->googleApi();
                     
                     // show error message
                     if ( isset( $google_reviews->error_message ) && $google_reviews->error_message ) { 

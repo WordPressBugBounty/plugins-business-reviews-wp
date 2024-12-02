@@ -17,7 +17,7 @@ class AddMetaBox {
     public function manage_rtbr_columns($column) {
         switch ($column) {
             case 'shortcode':
-                echo '<input type="text" onfocus="this.select();" readonly="readonly" value="[rt-business-review id=&quot;' . get_the_ID() . '&quot; title=&quot;' . get_the_title() . '&quot;]" class="large-text code rt-code-sc">';
+                echo '<input type="text" onfocus="this.select();" readonly="readonly" value="[rt-business-review id=&quot;' . esc_attr( get_the_ID() ) . '&quot; title=&quot;' . esc_attr( get_the_title() ) . '&quot;]" class="large-text code rt-code-sc">';
                 break;
             default:
                 break;
@@ -100,6 +100,7 @@ class AddMetaBox {
                         </div>
                     </div>';
 
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $html;
     }
 
@@ -111,7 +112,7 @@ class AddMetaBox {
         $html = null;
         $html .= "<div class='rt-response'></div>";
         $html .= "<div id='rtbr-preview-container'></div>";
-        echo $html;
+        echo wp_kses_post( $html );
 
     }
 
@@ -125,7 +126,7 @@ class AddMetaBox {
         <input type="text" onfocus="this.select();" readonly="readonly" value="&#60;&#63;php echo do_shortcode( &#39;[rt-business-review id=&quot;' . $post->ID . '&quot; title=&quot;' . $post->post_title . '&quot;]&#39; ); &#63;&#62;" class="large-text code rt-code-sc">
         </p>';
         $html .= '</div></div>';
-
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $html;
     }
 
@@ -160,7 +161,8 @@ class AddMetaBox {
         $html .= '</div>'; 
 
         $html .= '</div>';
-        echo $html;
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo  $html;
     } 
 
     function save_post($post_id, $post) {
@@ -182,15 +184,14 @@ class AddMetaBox {
             if (isset($field['multiple'])) {
                 if ($field['multiple']) {
                     delete_post_meta($post_id, $field['name']);
-                    $mValueA = isset($_REQUEST[$field['name']]) ? array_map( 'sanitize_text_field', $_REQUEST[$field['name']] )  : array();
+                    $mValueA = isset($_REQUEST[$field['name']]) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST[$field['name']] ) )  : array();
                     if (is_array($mValueA) && !empty($mValueA)) {
                         foreach ($mValueA as $item) {
                             add_post_meta($post_id, $field['name'], trim($item));
                         }
                     }
                 }
-            } else {   
-
+            } else {
                 switch ( $field['name'] ) {
                     case 'business_type':
                     case 'layout':
@@ -198,9 +199,8 @@ class AddMetaBox {
                     case 'img_border_radius':
                     case 'review_text_limit_type':
                     case 'read_more_text':
-                        $fValue = isset( $_REQUEST[$field['name']] ) ? sanitize_text_field( $_REQUEST[$field['name']] ) : null; 
+                        $fValue = isset( $_REQUEST[$field['name']] ) ? sanitize_text_field( wp_unslash( $_REQUEST[$field['name']] ) ) : null;
                         break;
-                   
                     case 'multi_business':
                     case 'business_info_fields':
                     case 'review_fields':
@@ -212,13 +212,13 @@ class AddMetaBox {
                     case 'time_ago_text':
                     case 'total_review_text':
                     case 'powered_by_text':
-                        $fValue = isset( $_REQUEST[$field['name']] ) ? array_map( 'sanitize_text_field', $_REQUEST[$field['name']] ) : null;  
+                        $fValue = isset( $_REQUEST[$field['name']] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST[$field['name']] ) ) : null;
                         break; 
 
                     case 'grid_column':
                     case 'reviews_per_page':
                     case 'review_text_limit':
-                        $fValue = isset( $_REQUEST[$field['name']] ) ? absint( $_REQUEST[$field['name']] ) : null;
+                        $fValue = isset( $_REQUEST[$field['name']] ) ? absint( wp_unslash( $_REQUEST[$field['name']] ) ) : null;
                         break;
 
                     case 'pagination':
@@ -228,7 +228,7 @@ class AddMetaBox {
                     case 'open_link_blank':
                     case 'no_follow_link':
                     case 'google_rich_snippet':
-                        $fValue = isset( $_REQUEST[$field['name']] ) ? absint( $_REQUEST[$field['name']] ) : null;
+                        $fValue = isset( $_REQUEST[$field['name']] ) ? absint( wp_unslash( $_REQUEST[$field['name']] ) ) : null;
                         break;  
 
                     case 'google_star_color':
@@ -236,11 +236,11 @@ class AddMetaBox {
                     case 'yelp_star_color':
                     case 'review_border_color':
                     case 'review_bg_color':
-                        $fValue = isset( $_REQUEST[$field['name']] ) ? sanitize_hex_color( $_REQUEST[$field['name']] ) : null; 
+                        $fValue = isset( $_REQUEST[$field['name']] ) ? sanitize_hex_color( wp_unslash( $_REQUEST[$field['name']] ) ) : null;
                         break;  
                     
                     default: 
-                        $fValue = isset( $_REQUEST[$field['name']] ) ? sanitize_text_field( $_REQUEST[$field['name']] ) : null;
+                        $fValue = isset( $_REQUEST[$field['name']] ) ? sanitize_text_field( wp_unslash( $_REQUEST[$field['name']] ) ) : null;
                         break;
                 }
 

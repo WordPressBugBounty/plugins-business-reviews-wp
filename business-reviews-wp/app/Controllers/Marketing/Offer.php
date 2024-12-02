@@ -59,12 +59,13 @@ class Offer {
 				<div class="notice notice-info is-dismissible" data-rtbrdismissable="rtbr_ny_2023"
 					style="display:grid;grid-template-columns: 100px auto;padding-top: 25px; padding-bottom: 22px;">
 					<img alt="<?php echo esc_attr( $plugin_name ); ?>"
-						src="<?php echo rtbr()->get_assets_uri( 'imgs/icon-128x128.png' ); ?>" width="74px"
+						src="<?php echo esc_url( rtbr()->get_assets_uri( 'imgs/icon-128x128.png' ) ); ?>" width="74px"
 						height="74px" style="grid-row: 1 / 4; align-self: center;justify-self: center"/>
-					<h3 style="margin:0;"><?php echo sprintf( '%s New Year Deal!!', $plugin_name ); ?></h3>
+
+					<h3 style="margin:0;"><?php echo esc_html( sprintf( '%s New Year Deal!!', $plugin_name ) ); ?></h3>
 
 					<p style="margin:0 0 2px;">
-						<?php echo esc_html__( "Don't miss out on our biggest sale of the year! Get your.", 'review-schema' ); ?>
+						<?php echo esc_html__( "Don't miss out on our biggest sale of the year! Get your.", 'business-reviews-wp' ); ?>
 						<b><?php echo esc_attr( $plugin_name ); ?> plan</b> with <b>UP TO 50% OFF</b>! Limited time offer!!
 					</p>
 
@@ -90,7 +91,7 @@ class Offer {
 										e.preventDefault();
 										$.post(ajaxurl, {
 											'action': 'rtbr_dismiss_admin_notice',
-											'nonce': <?php echo json_encode( wp_create_nonce( 'rtbr-dismissible-notice' ) ); ?>
+											'nonce': <?php echo wp_json_encode( wp_create_nonce( 'rtbr-dismissible-notice' ) ); ?>
 										});
 										$(e.target).closest('.is-dismissible').remove();
 									});
@@ -135,12 +136,12 @@ class Offer {
                 <div class="notice notice-info is-dismissible" data-rtbrbfdismissable="rtbr_black_friday_offer_2023"
                      style="display:grid;grid-template-columns: 100px auto;padding-top: 25px; padding-bottom: 22px;">
                     <img alt="<?php echo esc_attr( $plugin_name ); ?>"
-                         src="<?php echo rtbr()->get_assets_uri( 'imgs/icon-128x128.png' ); ?>" width="74px"
+                         src="<?php echo esc_url( rtbr()->get_assets_uri( 'imgs/icon-128x128.png' ) ); ?>" width="74px"
                          height="74px" style="grid-row: 1 / 4; align-self: center;justify-self: center"/>
-                    <h3 style="margin:0;"><?php echo sprintf( '%s Black Friday Sale 2023!!', $plugin_name ); ?></h3>
+                    <h3 style="margin:0;"><?php echo esc_html( sprintf( '%s Black Friday Sale 2023!!', $plugin_name ) ); ?></h3>
 
                     <p style="margin:0 0 2px;padding: 5px 0;">
-                        Exciting News: <b><?php echo $plugin_name; ?></b> Black Friday sale is now live! Get the plugin today and enjoy discounts up to 50%.
+                        Exciting News: <b><?php echo esc_html( $plugin_name ); ?></b> Black Friday sale is now live! Get the plugin today and enjoy discounts up to 50%.
                     </p>
 
                     <p style="margin:0;">
@@ -165,7 +166,7 @@ class Offer {
                                         e.preventDefault();
                                         $.post(ajaxurl, {
                                             'action': 'rtbr_dismiss_admin_black_friday_notice',
-                                            'nonce': <?php echo json_encode( wp_create_nonce( 'rtbr-black-friday-offer-2023' ) ); ?>
+                                            'nonce': <?php echo wp_json_encode( wp_create_nonce( 'rtbr-black-friday-offer-2023' ) ); ?>
                                         });
                                         $(e.target).closest('.is-dismissible').remove();
                                     });

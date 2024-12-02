@@ -5,7 +5,7 @@ use Rtbr\Helpers\Functions;
 use Rtbr\Models\BusinessInfo;
 
 class Review {
- 
+    private $id;
     private $shortcode_id;  
     private $description;
     private $created_at;
@@ -14,9 +14,9 @@ class Review {
     private $review_url;
     private $author_img; 
     private $business_type_logo; 
-    private $business_type;   
+    private $business_type;
 
-    function setReview( $shortcode_id, $review, $business_type ) {  
+    function setReview( $shortcode_id, $review, $business_type ) {
  
         $this->shortcode_id = $shortcode_id;   
         $this->business_type = $business_type;
@@ -114,7 +114,7 @@ class Review {
 					"@type" => "Person",
 					"name" => $single['name']
 				], 
-				"datePublished" => date("Y-m-d", $single['time']),
+				"datePublished" => wp_date("Y-m-d", $single['time']),
 				"reviewBody" => $single['desc_text']  
 			];
 		} 
@@ -158,9 +158,9 @@ class Review {
 
         $text_limit = ( isset( $_POST['review_text_limit'] ) ) ? absint( $_POST['review_text_limit'] ) : get_post_meta( $this->shortcode_id, 'review_text_limit', true ); 
         if ( $text_limit ) { 
-            $read_more_text = ( isset( $_POST['read_more_text'] ) ) ? sanitize_text_field( $_POST['read_more_text'] ) : get_post_meta( $this->shortcode_id, 'read_more_text', true );
+            $read_more_text = ( isset( $_POST['read_more_text'] ) ) ? sanitize_text_field( wp_unslash( $_POST['read_more_text'] ) ) : get_post_meta( $this->shortcode_id, 'read_more_text', true );
             
-            $limit_type = ( isset( $_POST['review_text_limit_type'] ) ) ? sanitize_text_field( $_POST['review_text_limit_type'] ) : get_post_meta( $this->shortcode_id, 'review_text_limit_type', true );
+            $limit_type = ( isset( $_POST['review_text_limit_type'] ) ) ? sanitize_text_field( wp_unslash( $_POST['review_text_limit_type'] ) ) : get_post_meta( $this->shortcode_id, 'review_text_limit_type', true );
             if ( $limit_type == 'word' ) {
 
                 $display_text = wp_trim_words( $this->description, $text_limit, '' );

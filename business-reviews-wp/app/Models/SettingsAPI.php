@@ -74,7 +74,8 @@ abstract class SettingsAPI {
 	 * Save the settings.
 	 */
 	public function save() {
-		if ( 'POST' !== $_SERVER['REQUEST_METHOD']
+		if ( ! isset( $_SERVER['REQUEST_METHOD'] )
+            || 'POST' !== $_SERVER['REQUEST_METHOD']
 		    || ! isset( $_REQUEST['post_type'] )
 		    || ! isset( $_REQUEST['page'] )
 		    || ( isset( $_REQUEST['post_type'] ) && rtbr()->getPostType() !== $_REQUEST['post_type'] )
@@ -82,17 +83,21 @@ abstract class SettingsAPI {
 		) {
 			return;
 		}
-		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( $_REQUEST['_wpnonce'], 'rtbr-settings' ) ) {
+		if ( empty( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'rtbr-settings' ) ) {
 			die( esc_html__( 'Action failed. Please refresh the page and retry.', 'business-reviews-wp' ) );
 		}
 
 		// Find the active tab
-		$this->option = $this->active_tab = isset( $_GET['tab'] ) && array_key_exists( $_GET['tab'],
-			$this->tabs ) ? $_GET['tab'] : 'general';
+        $this->option = $this->active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), $this->tabs ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
 		 
 		if ( ! empty( $this->subtabs ) ) {
-			$this->current_section = isset( $_GET['section'] ) && in_array( $_GET['section'],
-				array_filter( array_keys( $this->subtabs ) ) ) ? $_GET['section'] : '';
+
+            $this->current_section = isset( $_GET['section'] ) && in_array(
+                sanitize_key( wp_unslash( $_GET['section'] ) ),
+                array_filter( array_keys( $this->subtabs ) )
+            ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : '';
+
+
 			$this->option          = ! empty( $this->current_section ) ? $this->option . '_' . $this->current_section : $this->active_tab . "_settings";
 		} else {
 			$this->option = $this->option . "_settings";
@@ -136,7 +141,8 @@ abstract class SettingsAPI {
 	 * Output the admin options table.
 	 */
 	public function admin_options() {
-		echo '<table class="form-table">' . $this->generate_settings_html( $this->get_form_fields() ) . '</table>';
+        // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+        echo '<table class="form-table">' . $this->generate_settings_html( $this->get_form_fields() ) . '</table>';
 	}
 
 	/**
@@ -193,9 +199,14 @@ abstract class SettingsAPI {
 	 */
 	public function get_field_value( $key, $field, $post_data = array() ) {
 		$type = $this->get_field_type( $field );
-		$field_key = $key; //$this->get_field_key( $key );
+		$field_key = $key;
 		$post_data = empty( $post_data ) ? $_POST : $post_data;
-		$post_data = empty( $post_data ) ? ! empty( $_POST[ $this->get_option_key() ] ) ? $_POST[ $this->get_option_key() ] : array() : $post_data;
+        if ( isset( $_POST[ $this->get_option_key() ] ) ) {
+            $raw_post_data = wp_unslash( $_POST[ $this->get_option_key() ] );
+            $post_data = array_map( 'sanitize_text_field', $raw_post_data );
+        } else {
+            $post_data = array();
+        }
 		$value     = isset( $post_data[ $field_key ] ) ? $post_data[ $field_key ] : null;
 
 		// Look for a validate_FIELDID_field method for special handling
@@ -227,13 +238,15 @@ abstract class SettingsAPI {
 	 *
 	 * @return array
 	 */
-	public function get_post_data() {
-		if ( ! empty( $this->data ) && is_array( $this->data ) ) {
-			return $this->data;
-		}
 
-		return isset( $_POST[ $this->get_option_key() ] ) ? $_POST[ $this->get_option_key() ] : array();
-	}
+    public function get_post_data() {
+        if ( ! empty( $this->data ) && is_array( $this->data ) ) {
+            return $this->data;
+        }
+        return isset( $_POST[ $this->get_option_key() ] )
+            ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST[ $this->get_option_key() ] ) )
+            : array();
+    }
 
 	/**
 	 * Processes and saves options.
@@ -479,8 +492,9 @@ abstract class SettingsAPI {
                            id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
                            value="<?php echo esc_attr( $this->get_option( $key ) ); ?>"
                            placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?> />
-					<?php echo $this->get_description_html( $data ); ?>
+						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) );
+                        ?> />
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ) ?>
                 </fieldset>
             </td>
         </tr>
@@ -512,26 +526,26 @@ abstract class SettingsAPI {
                         <div class='rtbr-image-size-item'>
 							<?php
 							if ( $option_key == 'crop' ): ?>
-                                <label for="<?php echo esc_attr( $id ) . "-" . $option_key; ?>">
+                                <label for="<?php echo esc_attr( $id ) . "-" . esc_attr( $option_key ); ?>">
                                     <input type="checkbox"
                                            name="<?php echo esc_attr( $field_key ); ?>[<?php echo esc_attr( $option_key ); ?>]"
-                                           id="<?php echo esc_attr( $id ) . "-" . $option_key; ?>"
+                                           id="<?php echo esc_attr( $id ) . "-" . esc_attr( $option_key ); ?>"
                                            value="yes" <?php checked( isset( $size[ $option_key ] ) ? $size[ $option_key ] : null, 'yes' ); ?> />
 									<?php echo wp_kses_post( $option_value ); ?>
                                 </label><br/>
 							<?php else:
 								$value = ! empty( $size[ $option_key ] ) ? absint( esc_attr( $size[ $option_key ] ) ) : null;
 								?>
-                                <label for='<?php echo esc_attr( $id ) . "-" . $option_key; ?>'><?php echo wp_kses_post( $option_value ); ?></label>
+                                <label for='<?php echo esc_attr( $id ) . "-" . esc_attr(  $option_key ); ?>'><?php echo wp_kses_post( $option_value ); ?></label>
                                 <input type='number'
                                        name='<?php echo esc_attr( $field_key ); ?>[<?php echo esc_attr( $option_key ); ?>]'
-                                       id="<?php echo esc_attr( $id ) . "-" . $option_key; ?>"
+                                       id="<?php echo esc_attr( $id ) . "-" . esc_attr( $option_key ); ?>"
                                        value="<?php echo esc_attr( $value ); ?>"
                                 />
 							<?php endif; ?>
                         </div>
 					<?php endforeach; ?>
-					<?php echo $this->get_description_html( $data ); ?>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -573,7 +587,7 @@ abstract class SettingsAPI {
                         <input type="button" class="button button-secondary rtbr-remove-image"
                                value="<?php esc_attr_e( 'Remove Image', 'business-reviews-wp' ); ?>"/>
                     </div>
-					<?php echo $this->get_description_html( $data ); ?>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -597,7 +611,7 @@ abstract class SettingsAPI {
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
                 <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
             </th>
-            <td class="form-input"> 
+            <td class="form-input">
 
 			<fb:login-button 
 			scope="pages_show_list,pages_read_user_content,pages_read_engagement"
@@ -607,7 +621,7 @@ abstract class SettingsAPI {
 			<script>
 				window.fbAsyncInit = function() {
 					FB.init({ 
-					appId      : '<?php echo rtbr()->get_options('rtbr_facebook_settings', array('fb_app_id', '713789302671576') ); ?>',  
+					appId      : '<?php echo esc_js( rtbr()->get_options('rtbr_facebook_settings', array('fb_app_id', '713789302671576') ) ); ?>',
 					cookie     : true,
 					xfbml      : true,
 					version    : 'v2.0'
@@ -656,7 +670,7 @@ abstract class SettingsAPI {
 					} );
 				} 
 			</script>
-				<?php echo $this->get_description_html( $data ); ?>
+				<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
             </td>
         </tr>
 		<?php
@@ -698,8 +712,8 @@ abstract class SettingsAPI {
                            id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
                            value="<?php echo esc_attr( Functions::format_decimal( $this->get_option( $key ) ) ); ?>"
                            placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?> />
-					<?php echo $this->get_description_html( $data ); ?>
+						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -741,8 +755,8 @@ abstract class SettingsAPI {
                            id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
                            value="<?php echo esc_attr( Functions::format_decimal( $this->get_option( $key ) ) ); ?>"
                            placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?> />
-					<?php echo $this->get_description_html( $data ); ?>
+						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -799,8 +813,8 @@ abstract class SettingsAPI {
                            style="<?php echo esc_attr( $data['css'] ); ?>"
                            value="<?php echo esc_attr( $this->get_option( $key ) ); ?>"
 						<?php disabled( $data['disabled'],
-							true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?> />
-					<?php echo $this->get_description_html( $data ); ?>
+							true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -842,8 +856,8 @@ abstract class SettingsAPI {
                               name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
                               style="<?php echo esc_attr( $data['css'] ); ?>"
                               placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?>><?php echo esc_textarea( $this->get_option( $key ) ); ?></textarea>
-					<?php echo $this->get_description_html( $data ); ?>
+						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>><?php echo esc_textarea( $this->get_option( $key ) ); ?></textarea>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -883,7 +897,7 @@ abstract class SettingsAPI {
 						)
 					);
 
-					echo '<pre>' . $this->get_description_html( $data ) . '</pre>';
+					echo '<pre>' . wp_kses_post( $this->get_description_html( $data ) ) . '</pre>';
 
 					?>
                 </fieldset>
@@ -933,9 +947,9 @@ abstract class SettingsAPI {
                                 id="<?php echo esc_attr( $id ); ?>"
                                 style="<?php echo esc_attr( $data['css'] ); ?>"
                                 value="yes" <?php checked( $this->get_option( $key ),
-							'yes' ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?> /> <?php echo wp_kses_post( $data['label'] ); ?>
+							'yes' ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> /> <?php echo wp_kses_post( $data['label'] ); ?>
                     </label><br/>
-					<?php echo $this->get_description_html( $data ); ?>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -987,7 +1001,7 @@ abstract class SettingsAPI {
 							<?php echo esc_attr( $option_value ); ?>
                         </label><br/>
 					<?php endforeach; ?>
-					<?php echo $this->get_description_html( $data ); ?>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -1027,7 +1041,7 @@ abstract class SettingsAPI {
                     <select class="select <?php echo esc_attr( $data['class'] ); ?>"
                             name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
                             style="<?php echo esc_attr( $data['css'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?>>
+						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>>
 						<?php if ( ! empty( $data['blank'] ) ): ?>
                             <option value="<?php echo esc_attr( $data['blank_value'] ); ?>"><?php echo esc_html( $data['blank_text'] ); ?></option>
 						<?php endif; ?>
@@ -1036,7 +1050,7 @@ abstract class SettingsAPI {
 								esc_attr( $this->get_option( $key ) ) ); ?>><?php echo esc_html( $option_value ); ?></option>
 						<?php endforeach; ?>
                     </select>
-					<?php echo $this->get_description_html( $data ); ?>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -1079,7 +1093,7 @@ abstract class SettingsAPI {
 									$this->get_option( $key ) ) ?> > <?php echo wp_kses_post( $option_value ) ?></label>
                         <br>
 					<?php endforeach; ?>
-					<?php echo $this->get_description_html( $data ); ?>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
                 </fieldset>
             </td>
         </tr>
@@ -1104,7 +1118,6 @@ abstract class SettingsAPI {
 		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 		$value         = (array) $this->get_option( $key, array() );
-
 		ob_start();
 		?>
         <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
@@ -1119,18 +1132,18 @@ abstract class SettingsAPI {
                     <select multiple="multiple" class="multiselect <?php echo esc_attr( $data['class'] ); ?>"
                             name="<?php echo esc_attr( $field_key ); ?>[]" id="<?php echo esc_attr( $id ); ?>"
                             style="<?php echo esc_attr( $data['css'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo $this->get_custom_attribute_html( $data ); ?>>
+						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>>
 						<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
                             <option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( in_array( $option_key,
 								$value ), true ); ?>><?php echo esc_html( $option_value ); ?></option>
 						<?php endforeach; ?>
                     </select>
-					<?php echo $this->get_description_html( $data ); ?>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
 					<?php if ( $data['select_buttons'] ) : ?>
                         <br/><a class="select_all button"
-                                href="#"><?php _e( 'Select all', 'business-reviews-wp' ); ?></a> <a
+                                href="#"><?php esc_html_e( 'Select all', 'business-reviews-wp' ); ?></a> <a
                                 class="select_none button"
-                                href="#"><?php _e( 'Select none', 'business-reviews-wp' ); ?></a>
+                                href="#"><?php esc_html_e( 'Select none', 'business-reviews-wp' ); ?></a>
 					<?php endif; ?>
                 </fieldset>
             </td>

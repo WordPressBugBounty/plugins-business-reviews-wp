@@ -10,7 +10,7 @@
             if ( $this->active_tab == $slug ) {
                 $class .= ' nav-tab-active';
             }
-            echo '<a href="?post_type=' . rtbr()->getPostType() . '&page=rtbr-settings&tab=' . $slug . '" class="' . $class . '">' . $title . '</a>';
+            echo '<a href="?post_type=' . esc_attr( rtbr()->getPostType() ) . '&page=rtbr-settings&tab=' . esc_attr( $slug ) . '" class="' . esc_attr( $class ) . '">' . esc_html( $title ) . '</a>';
         }
         ?>
     </h2> 

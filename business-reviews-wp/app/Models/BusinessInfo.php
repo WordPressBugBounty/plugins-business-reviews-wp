@@ -25,7 +25,7 @@ class BusinessInfo {
         $this->shortcode_id = $shortcode_id; 
         $this->business_type = $business_type; 
 
-        $this->layout = ( isset( $_POST['layout'] ) ) ? sanitize_text_field( $_POST['layout'] ) : get_post_meta( $shortcode_id, 'layout', true ); 
+        $this->layout = ( isset( $_POST['layout'] ) ) ? sanitize_text_field( wp_unslash( $_POST['layout'] ) ) : get_post_meta( $shortcode_id, 'layout', true );
 
         switch ( $this->business_type ) {
             case "google":  

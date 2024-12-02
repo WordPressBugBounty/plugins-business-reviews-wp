@@ -17,10 +17,9 @@ class BusinessReview {
 		), $atts );   
 	 
 		// get all meta value
-		$sc_meta = array_merge( $sc_meta, MetaOptions::metaValue( $sc_meta['id'] ) ); 
-		
+		$sc_meta = array_merge( $sc_meta, MetaOptions::metaValue( $sc_meta['id'] ) );
 		$review_data = $rich_snippet = $google_data = $facebook_data = $yelp_data = []; 
-		$api = new Api(); 
+		$api = new Api();
 
 		// check empty api
 		if ( $error_data = $api->emptyApi( $sc_meta['business_type'] ) ) {
@@ -33,7 +32,7 @@ class BusinessReview {
 		if ( $sc_meta['business_type'] == "google" || ( $sc_meta['business_type'] == "multiple" && in_array('google', $sc_meta['multi_business']) ) ) {  
 			$review_data = isset($api->getGoogleReview( $sc_meta['id'] )->reviews) ? $api->getGoogleReview( $sc_meta['id'] )->reviews : ''; 
 			$business_info_data = $api->getGoogleReview( $sc_meta['id'] );  
-			$ggl_data = Review::decorate_review( $sc_meta['id'], $review_data, "google" );  
+			$ggl_data = Review::decorate_review( $sc_meta['id'], $review_data, "google" );
 
 			// google data shorting filter
 			$review_data = $google_data = apply_filters('rtbr_google_review_shorting', $ggl_data, $sc_meta['id']); 
@@ -90,13 +89,14 @@ class BusinessReview {
 		) );   
 		 
 		// custom shortcode style 
-		if ( is_admin() ) { 
-			echo Functions::shortcode_style( $sc_meta['id'], true );  
+		if ( is_admin() ) {
+            // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			echo Functions::shortcode_style( $sc_meta['id'], true );
 		} 
 
 		// google rich snippet load
 		if ( $rich_snippet ) {
-			$script = "<script type='application/ld+json' id='rtbr-snippet-{$sc_meta['id']}'>".json_encode( $rich_snippet )."</script>";
+			$script = "<script type='application/ld+json' id='rtbr-snippet-{$sc_meta['id']}'>".wp_json_encode( $rich_snippet )."</script>";
 			add_action( 'wp_footer', function() use( $script ) {
 				$allowed_html = [
 					'script' => [

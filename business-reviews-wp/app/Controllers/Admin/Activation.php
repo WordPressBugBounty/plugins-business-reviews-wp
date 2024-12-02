@@ -35,7 +35,7 @@ class Activation {
             foreach ($scPostIds as $scPostId) {  
                 Functions::generatorShortCodeCss($scPostId);
             }
-        } 
-        wp_reset_query(); 
+        }
+        wp_reset_postdata();
     } 
 }

@@ -2,32 +2,32 @@
  
 $sc_meta = []; 
 
-$sc_meta['layout'] = isset( $_REQUEST['layout'] ) ? sanitize_text_field( $_REQUEST['layout'] ) : get_post_meta( $sc_id, 'layout', true ); 
-$sc_meta['floating_badge_pos'] = isset( $_REQUEST['floating_badge_pos'] ) ? sanitize_text_field( $_REQUEST['floating_badge_pos'] ) : get_post_meta( $sc_id, 'floating_badge_pos', true );
-$sc_meta['width'] = isset( $_REQUEST['width'] ) ? sanitize_text_field( $_REQUEST['width'] ) : get_post_meta( $sc_id, 'width', true );
+$sc_meta['layout'] = isset( $_REQUEST['layout'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['layout'] ) ) : get_post_meta( $sc_id, 'layout', true );
+$sc_meta['floating_badge_pos'] = isset( $_REQUEST['floating_badge_pos'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['floating_badge_pos'] ) ) : get_post_meta( $sc_id, 'floating_badge_pos', true );
+$sc_meta['width'] = isset( $_REQUEST['width'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['width'] ) ) : get_post_meta( $sc_id, 'width', true );
 
-$sc_meta['badge_bg'] = isset( $_REQUEST['badge_bg'] ) ? sanitize_hex_color( $_REQUEST['badge_bg'] ) : get_post_meta( $sc_id, 'badge_bg', true ); 
-$sc_meta['business_title'] = isset( $_REQUEST['business_title'] ) ? array_map( 'sanitize_text_field', $_REQUEST['business_title'] ) : get_post_meta( $sc_id, 'business_title', true ); 
-$sc_meta['business_title_hover'] = isset( $_REQUEST['business_title_hover'] ) ? array_map( 'sanitize_text_field', $_REQUEST['business_title_hover'] ) : get_post_meta( $sc_id, 'business_title_hover', true );
-$sc_meta['author_name'] = isset( $_REQUEST['author_name'] ) ? array_map( 'sanitize_text_field', $_REQUEST['author_name'] ) : get_post_meta( $sc_id, 'author_name', true ); 
-$sc_meta['author_name_hover'] = isset( $_REQUEST['author_name_hover'] ) ? array_map( 'sanitize_text_field', $_REQUEST['author_name_hover'] ) : get_post_meta( $sc_id, 'author_name_hover', true );
-$sc_meta['review_text'] = isset( $_REQUEST['review_text'] ) ? array_map( 'sanitize_text_field', $_REQUEST['review_text'] ) : get_post_meta( $sc_id, 'review_text', true );  
-$sc_meta['time_ago_text'] = isset( $_REQUEST['time_ago_text'] ) ? array_map( 'sanitize_text_field', $_REQUEST['time_ago_text'] ) : get_post_meta( $sc_id, 'time_ago_text', true );   
-$sc_meta['total_review_text'] = isset( $_REQUEST['total_review_text'] ) ? array_map( 'sanitize_text_field', $_REQUEST['total_review_text'] ) : get_post_meta( $sc_id, 'total_review_text', true );   
-$sc_meta['powered_by_text'] = isset( $_REQUEST['powered_by_text'] ) ? array_map( 'sanitize_text_field', $_REQUEST['powered_by_text'] ) : get_post_meta( $sc_id, 'powered_by_text', true );  
+$sc_meta['badge_bg'] = isset( $_REQUEST['badge_bg'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['badge_bg'] ) ) : get_post_meta( $sc_id, 'badge_bg', true );
+$sc_meta['business_title'] = isset( $_REQUEST['business_title'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['business_title'] ) ) : get_post_meta( $sc_id, 'business_title', true );
+$sc_meta['business_title_hover'] = isset( $_REQUEST['business_title_hover'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['business_title_hover'] ) ) : get_post_meta( $sc_id, 'business_title_hover', true );
+$sc_meta['author_name'] = isset( $_REQUEST['author_name'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['author_name'] ) ) : get_post_meta( $sc_id, 'author_name', true );
+$sc_meta['author_name_hover'] = isset( $_REQUEST['author_name_hover'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['author_name_hover'] ) ) : get_post_meta( $sc_id, 'author_name_hover', true );
+$sc_meta['review_text'] = isset( $_REQUEST['review_text'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['review_text'] ) ) : get_post_meta( $sc_id, 'review_text', true );
+$sc_meta['time_ago_text'] = isset( $_REQUEST['time_ago_text'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['time_ago_text'] ) ) : get_post_meta( $sc_id, 'time_ago_text', true );
+$sc_meta['total_review_text'] = isset( $_REQUEST['total_review_text'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['total_review_text'] ) ) : get_post_meta( $sc_id, 'total_review_text', true );
+$sc_meta['powered_by_text'] = isset( $_REQUEST['powered_by_text'] ) ? array_map( 'sanitize_text_field', wp_unslash( $_REQUEST['powered_by_text'] ) ) : get_post_meta( $sc_id, 'powered_by_text', true );
 
-$sc_meta['google_star_color'] = isset( $_REQUEST['google_star_color'] ) ? sanitize_hex_color( $_REQUEST['google_star_color'] ) : get_post_meta( $sc_id, 'google_star_color', true );
-$sc_meta['facebook_star_color'] = isset( $_REQUEST['facebook_star_color'] ) ? sanitize_hex_color( $_REQUEST['facebook_star_color'] ) : get_post_meta( $sc_id, 'facebook_star_color', true );
-$sc_meta['yelp_star_color'] = isset( $_REQUEST['yelp_star_color'] ) ? sanitize_hex_color( $_REQUEST['yelp_star_color'] ) : get_post_meta( $sc_id, 'yelp_star_color', true );
-$sc_meta['img_border_radius'] = isset( $_REQUEST['img_border_radius'] ) ? sanitize_text_field( $_REQUEST['img_border_radius'] ) : get_post_meta( $sc_id, 'img_border_radius', true );
-$sc_meta['review_border_color'] = isset( $_REQUEST['review_border_color'] ) ? sanitize_hex_color( $_REQUEST['review_border_color'] ) : get_post_meta( $sc_id, 'review_border_color', true );
-$sc_meta['review_bg_color'] = isset( $_REQUEST['review_bg_color'] ) ? sanitize_hex_color( $_REQUEST['review_bg_color'] ) : get_post_meta( $sc_id, 'review_bg_color', true );
+$sc_meta['google_star_color'] = isset( $_REQUEST['google_star_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['google_star_color'] ) ) : get_post_meta( $sc_id, 'google_star_color', true );
+$sc_meta['facebook_star_color'] = isset( $_REQUEST['facebook_star_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['facebook_star_color'] ) ) : get_post_meta( $sc_id, 'facebook_star_color', true );
+$sc_meta['yelp_star_color'] = isset( $_REQUEST['yelp_star_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['yelp_star_color'] ) ) : get_post_meta( $sc_id, 'yelp_star_color', true );
+$sc_meta['img_border_radius'] = isset( $_REQUEST['img_border_radius'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['img_border_radius'] ) ) : get_post_meta( $sc_id, 'img_border_radius', true );
+$sc_meta['review_border_color'] = isset( $_REQUEST['review_border_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['review_border_color'] ) ) : get_post_meta( $sc_id, 'review_border_color', true );
+$sc_meta['review_bg_color'] = isset( $_REQUEST['review_bg_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['review_bg_color'] ) ) : get_post_meta( $sc_id, 'review_bg_color', true );
 
-$sc_meta['btn_text_color'] = isset( $_REQUEST['btn_text_color'] ) ? sanitize_hex_color( $_REQUEST['btn_text_color'] ) : get_post_meta( $sc_id, 'btn_text_color', true );
-$sc_meta['btn_bg_color'] = isset( $_REQUEST['btn_bg_color'] ) ? sanitize_hex_color( $_REQUEST['btn_bg_color'] ) : get_post_meta( $sc_id, 'btn_bg_color', true );
-$sc_meta['btn_text_hover_color'] = isset( $_REQUEST['btn_text_hover_color'] ) ? sanitize_hex_color( $_REQUEST['btn_text_hover_color'] ) : get_post_meta( $sc_id, 'btn_text_hover_color', true );
-$sc_meta['btn_bg_hover_color'] = isset( $_REQUEST['btn_bg_hover_color'] ) ? sanitize_hex_color( $_REQUEST['btn_bg_hover_color'] ) : get_post_meta( $sc_id, 'btn_bg_hover_color', true );
-$sc_meta['btn_border_radius'] = isset( $_REQUEST['btn_border_radius'] ) ? sanitize_text_field( $_REQUEST['btn_border_radius'] ) : get_post_meta( $sc_id, 'btn_border_radius', true );
+$sc_meta['btn_text_color'] = isset( $_REQUEST['btn_text_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['btn_text_color'] ) ) : get_post_meta( $sc_id, 'btn_text_color', true );
+$sc_meta['btn_bg_color'] = isset( $_REQUEST['btn_bg_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['btn_bg_color'] ) ) : get_post_meta( $sc_id, 'btn_bg_color', true );
+$sc_meta['btn_text_hover_color'] = isset( $_REQUEST['btn_text_hover_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['btn_text_hover_color'] ) ) : get_post_meta( $sc_id, 'btn_text_hover_color', true );
+$sc_meta['btn_bg_hover_color'] = isset( $_REQUEST['btn_bg_hover_color'] ) ? sanitize_hex_color( wp_unslash( $_REQUEST['btn_bg_hover_color'] ) ) : get_post_meta( $sc_id, 'btn_bg_hover_color', true );
+$sc_meta['btn_border_radius'] = isset( $_REQUEST['btn_border_radius'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['btn_border_radius'] ) ) : get_post_meta( $sc_id, 'btn_border_radius', true );
 
 $css  = null; 
 if ( $value = $sc_meta['width'] ) {

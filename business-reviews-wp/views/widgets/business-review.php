@@ -14,7 +14,8 @@
 
 		while( $shortcode_args->have_posts() ): $shortcode_args->the_post(); 
 			$selected = ( $instance['shortcode_id'] == get_the_ID() ) ? 'selected' : '';
-			echo '<option '. $selected .' value="'. get_the_ID() .'">'. get_the_title() .'</option>';
+			echo '<option '. esc_attr( $selected ) .' value="'. esc_attr( get_the_ID() ) .'">'. esc_attr( get_the_title() ) .'</option>';
+
 		endwhile; 
 		wp_reset_postdata();
 	?>

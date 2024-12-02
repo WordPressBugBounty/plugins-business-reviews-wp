@@ -11,7 +11,7 @@
  * 
  */  
 
-if ( $review_data ): ?>  
+if ( $review_data ): ?>
 <div class="rt-row <?php echo esc_attr( get_post_meta( $sc_meta['id'], 'parent_class', true ) ); ?> rt-<?php echo esc_attr( $business_info->getBusinessType() ); ?>-review" id="review-list-content-<?php echo esc_attr( $sc_meta['id'] ); ?>">
     <?php do_action('rtbr_before_review_list'); ?>
     <div class="rt-col-lg-12">
@@ -20,7 +20,7 @@ if ( $review_data ): ?>
             <div class="rt-media rtbr-single-review <?php echo esc_attr( $business_info->paginationClass( $key ) ); ?>">
                 <?php if ( in_array('img', $sc_meta['review_fields']) && $single['img'] ) { ?>
                 <div class="rt-author-img">
-                    <img src="<?php echo esc_attr( $single['img'] ); ?>" alt="<?php echo esc_attr( $single['name'] ); ?>">
+                    <img src="<?php echo esc_url( $single['img'] ); ?>" alt="<?php echo esc_attr( $single['name'] ); ?>">
                 </div>
                 <?php } ?> 
 

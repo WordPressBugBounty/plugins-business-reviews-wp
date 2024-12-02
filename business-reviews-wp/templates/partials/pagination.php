@@ -12,26 +12,26 @@
  */  
 ?> 
 <div class="rtbr-pagination rt-loadmore-btn">
-    <?php 
+    <?php
         do_action('rtbr_before_pagination');
             if ( $sc_meta['pagination'] && $sc_meta['layout'] != 'isotope-one' ) :
-                $pagi_num = $sc_meta['reviews_per_page']; 
+                $pagi_num = $sc_meta['reviews_per_page'];
                 if ( count( $review_data ) <= $pagi_num ) return;
                 if ( !$pagi_num ) {
                     $pagi_num = 10;
-                } 
+                }
             ?>
             <a href="javascript:void(0)" rel="nofollow" class="rtbr-load-more" data-pagi-num="<?php echo esc_attr( $pagi_num ); ?>" data-id="review-list-content-<?php echo esc_attr( $sc_meta['id'] ); ?>" data-total="<?php echo esc_attr( count( $review_data ) ); ?>"><?php esc_html_e( 'Load More', 'business-reviews-wp' ); ?></a>
-            <?php   
-            endif; //pagination 
+            <?php
+            endif; //pagination
 
             if ( $sc_meta['see_all_reviews'] == "" && $business_info->getBusinessType() != "multiple" ) {
-                echo '<a rel="nofollow" class="rtbr-see-all-review"' . $sc_meta['open_link_blank'] . ' href="'. esc_url( $business_info->getAllReviewUrl() ) .'">' . esc_html__( 'See All Reviews', 'business-reviews-wp' ) . '</a>'; 
-            } 
+                echo '<a rel="nofollow" class="rtbr-see-all-review"' . esc_attr( $sc_meta['open_link_blank'] ) . ' href="'. esc_url( $business_info->getAllReviewUrl() ) .'">' . esc_html__( 'See All Reviews', 'business-reviews-wp' ) . '</a>';
+            }
 
-            if ( $sc_meta['direct_review_link'] == "" && function_exists('rtbrp') && $business_info->getBusinessType() != "multiple" ) { 
-                echo $business_info->getDirectReview();
-            } 
+            if ( $sc_meta['direct_review_link'] == "" && function_exists('rtbrp') && $business_info->getBusinessType() != "multiple" ) {
+                echo wp_kses_post( $business_info->getDirectReview() );
+            }
         do_action('rtbr_after_pagination');
     ?>
 </div><!-- .rtbr-pagination  --> 

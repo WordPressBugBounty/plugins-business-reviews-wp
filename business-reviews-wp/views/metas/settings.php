@@ -2,5 +2,5 @@
  
 $helper = new Rtbr\Helpers\Functions;
 $meta_options = new Rtbr\Controllers\Admin\Meta\MetaOptions;
-
-echo $helper->fieldGenerator($meta_options->sectionSettingFields(), true);
+// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+echo  $helper->fieldGenerator($meta_options->sectionSettingFields(), true );

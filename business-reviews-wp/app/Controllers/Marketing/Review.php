@@ -1,64 +1,66 @@
 <?php
 
-namespace Rtbr\Controllers\Marketing; 
+namespace Rtbr\Controllers\Marketing;
 
 class Review {
 
-    public static function init() {
-        register_activation_hook( RTBR_PLUGIN_FILE, [__CLASS__, 'rtbr_activation_time'] );
-        add_action( 'admin_init', [__CLASS__, 'rtbr_check_installation_time'] );
-        add_action( 'admin_init', [__CLASS__, 'rtbr_spare_me'], 5 );
-    }
+	public static function init() {
+		register_activation_hook( RTBR_PLUGIN_FILE, [ __CLASS__, 'rtbr_activation_time' ] );
+		add_action( 'admin_init', [ __CLASS__, 'rtbr_check_installation_time' ] );
+		add_action( 'admin_init', [ __CLASS__, 'rtbr_spare_me' ], 5 );
+	}
 
-    // add plugin activation time
-    public static function rtbr_activation_time() {
-        $get_activation_time = strtotime( "now" );
-        add_option( 'rtbr_plugin_activation_time', $get_activation_time ); // replace your_plugin with Your plugin name
-    }
+	// add plugin activation time
+	public static function rtbr_activation_time() {
+		$get_activation_time = strtotime( 'now' );
+		add_option( 'rtbr_plugin_activation_time', $get_activation_time ); // replace your_plugin with Your plugin name
+	}
 
-    //check if review notice should be shown or not
-    public static function rtbr_check_installation_time() {
-	    if ( isset( $GLOBALS['rtbr_notice'] ) ) {
+	// check if review notice should be shown or not
+	public static function rtbr_check_installation_time() {
+		if ( isset( $GLOBALS['rtbr_notice'] ) ) {
 			return;
-	    }
-        // Added Lines Start 
-        $nobug = get_option( 'rtbr_spare_me', "0"); 
+		}
+		// Added Lines Start
+		$nobug = get_option( 'rtbr_spare_me', '0' );
 
-        if ($nobug == "1" || $nobug == "3") {
-            return;
-        }
+		if ( $nobug == '1' || $nobug == '3' ) {
+			return;
+		}
 
-        $install_date = get_option( 'rtbr_plugin_activation_time' );
-        $past_date    = strtotime( '-10 days' );
+		$install_date = get_option( 'rtbr_plugin_activation_time' );
+		$past_date    = strtotime( '-10 days' );
 
-        $remind_time = get_option( 'rtbr_remind_me' );
-        $remind_due  = strtotime( '+15 days', $remind_time );
-        $now         = strtotime( "now" );
+		$remind_time = get_option( 'rtbr_remind_me' );
+		$remind_due  = strtotime( '+15 days', $remind_time );
+		$now         = strtotime( 'now' );
 
-        if ( $now >= $remind_due ) {
-            add_action( 'admin_notices', [__CLASS__, 'rtbr_display_admin_notice']);
-        } else if (($past_date >= $install_date) &&  $nobug !== "2") {
-            add_action( 'admin_notices', [__CLASS__, 'rtbr_display_admin_notice']);
-        }
-    }
+		if ( $now >= $remind_due ) {
+			add_action( 'admin_notices', [ __CLASS__, 'rtbr_display_admin_notice' ] );
+		} elseif ( ( $past_date >= $install_date ) && $nobug !== '2' ) {
+			add_action( 'admin_notices', [ __CLASS__, 'rtbr_display_admin_notice' ] );
+		}
+	}
 
-    /**
-     * Display Admin Notice, asking for a review
-     **/
-    public static function rtbr_display_admin_notice() {
-        // wordpress global variable
-        global $pagenow;
+	/**
+	 * Display Admin Notice, asking for a review
+	 **/
+	public static function rtbr_display_admin_notice() {
+		// WordPress global variable
+		global $pagenow;
 
-        $exclude = [ 'themes.php', 'users.php', 'tools.php', 'options-general.php', 'options-writing.php', 'options-reading.php', 'options-discussion.php', 'options-media.php', 'options-permalink.php', 'options-privacy.php', 'edit-comments.php', 'upload.php', 'media-new.php', 'admin.php', 'import.php', 'export.php', 'site-health.php', 'export-personal-data.php', 'erase-personal-data.php' ];
+		$exclude = [ 'themes.php', 'users.php', 'tools.php', 'options-general.php', 'options-writing.php', 'options-reading.php', 'options-discussion.php', 'options-media.php', 'options-permalink.php', 'options-privacy.php', 'edit-comments.php', 'upload.php', 'media-new.php', 'admin.php', 'import.php', 'export.php', 'site-health.php', 'export-personal-data.php', 'erase-personal-data.php' ];
 
-        if ( ! in_array( $pagenow, $exclude ) ) {
-            $args         = [ '_wpnonce' => wp_create_nonce( 'rtbr_notice_nonce' ) ];
-            $dont_disturb = esc_url( add_query_arg( $args + ['rtbr_spare_me' => '1'], self::rtbr_current_admin_url() ) );
-            $remind_me    = esc_url( add_query_arg( $args + ['rtbr_remind_me' => '1'], self::rtbr_current_admin_url() ) );
-            $rated        = esc_url( add_query_arg( $args + ['rtbr_rated' => '1'], self::rtbr_current_admin_url() ) );
-            $reviewurl    = esc_url( 'https://wordpress.org/support/plugin/business-reviews-wp/reviews/?filter=5#new-post' );
-            /* translators: %s: URL to the WordPress.org review page */
-            printf( wp_kses_post( '<div class="notice rtbr-review-notice rtbr-review-notice--extended"> 
+		if ( ! in_array( $pagenow, $exclude ) ) {
+			$args         = [ '_wpnonce' => wp_create_nonce( 'rtbr_notice_nonce' ) ];
+			$dont_disturb = esc_url( add_query_arg( $args + [ 'rtbr_spare_me' => '1' ], self::rtbr_current_admin_url() ) );
+			$remind_me    = esc_url( add_query_arg( $args + [ 'rtbr_remind_me' => '1' ], self::rtbr_current_admin_url() ) );
+			$rated        = esc_url( add_query_arg( $args + [ 'rtbr_rated' => '1' ], self::rtbr_current_admin_url() ) );
+			$reviewurl    = esc_url( 'https://wordpress.org/support/plugin/business-reviews-wp/reviews/?filter=5#new-post' );
+			/* translators: %s: URL to the WordPress.org review page */
+			printf(
+				wp_kses_post(
+					'<div class="notice rtbr-review-notice rtbr-review-notice--extended"> 
                 <div class="rtbr-review-notice_content">
                     <h3>Enjoying Widget for Google Reviews?</h3>
                     <p>Thank you for choosing Widget for Google Reviews. If you have found our plugin useful and makes you smile, please consider giving us a 5-star rating on WordPress.org. It will help us to grow.</p>
@@ -69,9 +71,15 @@ class Review {
                         <a href="%4$s" class="rtbr-review-button rtbr-review-button--cta rtbr-review-button--error rtbr-review-button--outline"><span>😐 No Thanks</span></a>
                     </div>
                 </div> 
-            </div>'), esc_url( $reviewurl ), esc_url( $rated ), esc_url( $remind_me ), esc_url( $dont_disturb ) );
+            </div>'
+				),
+				esc_url( $reviewurl ),
+				esc_url( $rated ),
+				esc_url( $remind_me ),
+				esc_url( $dont_disturb )
+			);
 
-            echo '<style> 
+			echo '<style> 
             .rtbr-review-button--cta {
                 --e-button-context-color: #5d3dfd;
                 --e-button-context-color-dark: #5d3dfd;
@@ -178,47 +186,47 @@ class Review {
                 color: var(--e-button-context-color-dark);
             } 
             </style>';
-        }
-    }
+		}
+	}
 
-    // remove the notice for the user if review already done or if the user does not want to
-    public static function rtbr_spare_me() {
-        
-        if ( ! isset( $_REQUEST['_wpnonce'] ) || !wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'rtbr_notice_nonce' ) ) {
+	// remove the notice for the user if review already done or if the user does not want to
+	public static function rtbr_spare_me() {
+
+		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'rtbr_notice_nonce' ) ) {
 			return;
 		}
 
-        if ( isset( $_GET['rtbr_spare_me'] ) && ! empty( $_GET['rtbr_spare_me'] ) ) {
-            $spare_me = sanitize_text_field( wp_unslash( $_GET['rtbr_spare_me'] ) );
-            if ( 1 == $spare_me ) {
-                update_option( 'rtbr_spare_me', "1" );
-            }
-        }
+		if ( isset( $_GET['rtbr_spare_me'] ) && ! empty( $_GET['rtbr_spare_me'] ) ) {
+			$spare_me = sanitize_text_field( wp_unslash( $_GET['rtbr_spare_me'] ) );
+			if ( 1 == $spare_me ) {
+				update_option( 'rtbr_spare_me', '1' );
+			}
+		}
 
-        if ( isset( $_GET['rtbr_remind_me'] ) && ! empty( $_GET['rtbr_remind_me'] ) ) {
-            $remind_me = sanitize_text_field( wp_unslash( $_GET['rtbr_remind_me'] ) );
-            if ( 1 == $remind_me ) {
-                $get_activation_time = strtotime( "now" );
-                update_option( 'rtbr_remind_me', $get_activation_time );
-                update_option( 'rtbr_spare_me', "2" );
-            }
-        }
+		if ( isset( $_GET['rtbr_remind_me'] ) && ! empty( $_GET['rtbr_remind_me'] ) ) {
+			$remind_me = sanitize_text_field( wp_unslash( $_GET['rtbr_remind_me'] ) );
+			if ( 1 == $remind_me ) {
+				$get_activation_time = strtotime( 'now' );
+				update_option( 'rtbr_remind_me', $get_activation_time );
+				update_option( 'rtbr_spare_me', '2' );
+			}
+		}
 
-        if ( isset( $_GET['rtbr_rated'] ) && ! empty( $_GET['rtbr_rated'] ) ) {
-            $rtbr_rated = sanitize_text_field( wp_unslash( $_GET['rtbr_rated'] ) );
-            if ( 1 == $rtbr_rated ) {
-                update_option( 'rtbr_rated', 'yes' );
-                update_option( 'rtbr_spare_me', "3" );
-            }
-        }
-    }
+		if ( isset( $_GET['rtbr_rated'] ) && ! empty( $_GET['rtbr_rated'] ) ) {
+			$rtbr_rated = sanitize_text_field( wp_unslash( $_GET['rtbr_rated'] ) );
+			if ( 1 == $rtbr_rated ) {
+				update_option( 'rtbr_rated', 'yes' );
+				update_option( 'rtbr_spare_me', '3' );
+			}
+		}
+	}
 
-    protected static function rtbr_current_admin_url() {
-        $uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+	protected static function rtbr_current_admin_url() {
+		$uri = isset( $_SERVER['REQUEST_URI'] ) ? esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 		$uri = preg_replace( '|^.*/wp-admin/|i', '', $uri );
-		if (! $uri) {
+		if ( ! $uri ) {
 			return '';
 		}
-        return remove_query_arg( [ '_wpnonce', '_wc_notice_nonce', 'wc_db_update', 'wc_db_update_nonce', 'wc-hide-notice' , 'rtbr_rated', 'rtbr_remind_me', 'rtbr_spare_me' ], admin_url( $uri ) );
-    }
-}  
+		return remove_query_arg( [ '_wpnonce', '_wc_notice_nonce', 'wc_db_update', 'wc_db_update_nonce', 'wc-hide-notice' , 'rtbr_rated', 'rtbr_remind_me', 'rtbr_spare_me' ], admin_url( $uri ) );
+	}
+}

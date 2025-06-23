@@ -1,39 +1,39 @@
 <?php
 
 /**
- * @wordpress-plugin 
- * Plugin Name:       Widget for Google Reviews 
+ * @wordpress-plugin
+ * Plugin Name:       Widget for Google Reviews
  * Plugin URI:        https://www.radiustheme.com/demo/plugins/business-reviews
  * Description:       This is a business reviews plugin for Google, Facebook and Yelp
- * Version:           1.0.15
+ * Version:           1.0.16
  * Author:            RadiusTheme
  * Author URI:        https://radiustheme.com
+ * License:           GPLv3
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       business-reviews-wp
- *  License: GPL-2.0-or-later
  * Domain Path:       /languages
  */
 
 if (!defined('ABSPATH')) {
-  exit;
+    exit;
 }
 
 // Define PLUGIN_FILE.
 if (!defined('RTBR_PLUGIN_FILE')) {
-  define('RTBR_PLUGIN_FILE', __FILE__);
+    define('RTBR_PLUGIN_FILE', __FILE__);
 }
 
 // Define VERSION.
 if (!defined('RTBR_VERSION')) {
-  define('RTBR_VERSION', '1.0.15');
+    define('RTBR_VERSION', '1.0.16');
 }
 
 // Define VERSION.
 if (!defined('RTBR_PATH')) {
-	define( 'RTBR_PATH', plugin_dir_path( __FILE__ ) );
+    define('RTBR_PATH', plugin_dir_path(__FILE__));
 }
 
 
 if (!class_exists('Rtbr')) {
-  require_once("app/Rtbr.php");
+    require_once 'app/Rtbr.php';
 }
-

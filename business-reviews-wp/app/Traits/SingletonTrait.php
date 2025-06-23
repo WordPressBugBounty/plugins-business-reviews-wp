@@ -1,44 +1,44 @@
-<?php 
+<?php
 
-namespace Rtbr\Traits; 
+namespace Rtbr\Traits;
 
-trait SingletonTrait
-{
-    /**
-     * Store the singleton object.
-     */
-    private static $singleton = false;
+trait SingletonTrait {
 
-    /**
-     * Create an inaccessible constructor.
-     */
-    private function __construct() {
-        $this->__instance();
-    }
+	/**
+	 * Store the singleton object.
+	 */
+	private static $singleton = false;
 
-    private function __instance() {
-    }
+	/**
+	 * Create an inaccessible constructor.
+	 */
+	private function __construct() {
+		$this->__instance();
+	}
 
-    /**
-     * Fetch an instance of the class.
-     */
-    public static function getInstance() {
-        if (self::$singleton === false) {
-            self::$singleton = new self();
-        }
+	private function __instance() {
+	}
 
-        return self::$singleton;
-    }
+	/**
+	 * Fetch an instance of the class.
+	 */
+	public static function getInstance() {
+		if ( self::$singleton === false ) {
+			self::$singleton = new self();
+		}
 
-    /**
-     * Prevent cloning.
-     */
-    private function __clone() {
-    }
+		return self::$singleton;
+	}
 
-    /**
-     * Prevent unserializing.
-     */
-    public function __wakeup() {
-    }
+	/**
+	 * Prevent cloning.
+	 */
+	private function __clone() {
+	}
+
+	/**
+	 * Prevent unserializing.
+	 */
+	public function __wakeup() {
+	}
 }

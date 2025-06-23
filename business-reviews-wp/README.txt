@@ -3,9 +3,9 @@ Contributors: techlabpro1
 Donate link:
 Tags: reviews, google places reviews, google business, google reviews, rating, facebook reviews, facebook recommendations, yelp, yelp reviews
 Requires at least: 5.0
-Tested up to: 6.7
+Tested up to: 6.8
 Requires PHP: 7.0
-Stable tag: 1.0.15
+Stable tag: 1.0.16
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -21,7 +21,7 @@ By using Business Reviews plugin you can display your Google Business Reviews, F
 
 Business Reviews plugin display your Google Business reviews and rating ie. Google Places reviews and rating on your WordPress website in list or grid view within page post or widget. This plugin save your reviews in WordPress database so no dependency of any services to display Google review on your website. So no loading time related issue as it get review from WordPress database. You can generate unlimited shortcode and use any page/ post or widget.  
 
-You need Google MAP API key and place ID to display Google reviews. [See how to get the API key](https://www.radiustheme.com/docs/business-reviews/configurations/google-settings/how-to-get-google-places-api-key/).
+You need Google MAP API key and place ID to display Google reviews. [See how to get the API key](https://www.radiustheme.com/docs/business-reviews/docs/google-settings/how-to-get-google-places-api-key//).
 
 == 🏆 Facebook Reviews & Recommendations ==
 
@@ -98,6 +98,10 @@ It  required Yelp API key to get the Yelp reviews. See how to [create the Yelp A
 07. Settings
 
 == Changelog ==
+
+= 1.0.16 – June 23, 2025 =
+* Updated: Implemented proper input sanitization and data validation for improved security and stability.
+* Fixed: Incorrect plugin documentation link issue resolved.
 
 = 1.0.15 ( December 02, 2024) =
 * Fixed: PHP Deprecated Issue

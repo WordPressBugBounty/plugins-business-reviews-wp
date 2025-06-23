@@ -1,6 +1,6 @@
 <?php
 
-namespace Rtbr\Controllers\Marketing; 
+namespace Rtbr\Controllers\Marketing;
 
 class Offer {
 	public function __construct() {
@@ -9,7 +9,7 @@ class Offer {
 			function () {
 				$current = time();
 
-                /*
+				/*
 				if ( mktime( 0, 0, 0, 11, 17, 2022 ) <= $current && $current <= mktime( 0, 0, 0, 1, 15, 2023 ) ) {
 					if ( get_option( 'rtbr_ny_2023' ) != '1' ) {
 						if ( ! isset( $GLOBALS['rtbr_ny_2023_notice'] ) ) {
@@ -18,10 +18,10 @@ class Offer {
 						}
 					}
 				}
-                */
+				*/
 
-				$start         = strtotime( '19 November 2023' );
-				$end           = strtotime( '05 January 2024' );
+				$start = strtotime( '19 November 2023' );
+				$end   = strtotime( '05 January 2024' );
 				// Black Friday Notice
 				if ( $start <= $current && $current <= $end ) {
 					if ( get_option( 'rtbr_black_friday_offer_2023' ) != '1' ) {
@@ -32,8 +32,6 @@ class Offer {
 						}
 					}
 				}
-
-
 			}
 		);
 	}
@@ -114,7 +112,7 @@ class Offer {
 		);
 	}
 
-    
+
 	/**
 	 * Undocumented function.
 	 *
@@ -132,23 +130,24 @@ class Offer {
 			'admin_notices',
 			function () {
 				$plugin_name   = 'Widget for Google Reviews Pro';
-				$download_link = 'https://www.radiustheme.com/downloads/business-review/'; ?>
-                <div class="notice notice-info is-dismissible" data-rtbrbfdismissable="rtbr_black_friday_offer_2023"
-                     style="display:grid;grid-template-columns: 100px auto;padding-top: 25px; padding-bottom: 22px;">
-                    <img alt="<?php echo esc_attr( $plugin_name ); ?>"
-                         src="<?php echo esc_url( rtbr()->get_assets_uri( 'imgs/icon-128x128.png' ) ); ?>" width="74px"
-                         height="74px" style="grid-row: 1 / 4; align-self: center;justify-self: center"/>
-                    <h3 style="margin:0;"><?php echo esc_html( sprintf( '%s Black Friday Sale 2023!!', $plugin_name ) ); ?></h3>
+				$download_link = 'https://www.radiustheme.com/downloads/business-review/';
+				?>
+				<div class="notice notice-info is-dismissible" data-rtbrbfdismissable="rtbr_black_friday_offer_2023"
+					 style="display:grid;grid-template-columns: 100px auto;padding-top: 25px; padding-bottom: 22px;">
+					<img alt="<?php echo esc_attr( $plugin_name ); ?>"
+						 src="<?php echo esc_url( rtbr()->get_assets_uri( 'imgs/icon-128x128.png' ) ); ?>" width="74px"
+						 height="74px" style="grid-row: 1 / 4; align-self: center;justify-self: center"/>
+					<h3 style="margin:0;"><?php echo esc_html( sprintf( '%s Black Friday Sale 2023!!', $plugin_name ) ); ?></h3>
 
-                    <p style="margin:0 0 2px;padding: 5px 0;">
-                        Exciting News: <b><?php echo esc_html( $plugin_name ); ?></b> Black Friday sale is now live! Get the plugin today and enjoy discounts up to 50%.
-                    </p>
+					<p style="margin:0 0 2px;padding: 5px 0;">
+						Exciting News: <b><?php echo esc_html( $plugin_name ); ?></b> Black Friday sale is now live! Get the plugin today and enjoy discounts up to 50%.
+					</p>
 
-                    <p style="margin:0;">
-                        <a class="button button-primary" href="<?php echo esc_url( $download_link ); ?>" target="_blank">Buy Now</a>
-                        <a class="button button-dismiss" href="#">Dismiss</a>
-                    </p>
-                </div>
+					<p style="margin:0;">
+						<a class="button button-primary" href="<?php echo esc_url( $download_link ); ?>" target="_blank">Buy Now</a>
+						<a class="button button-dismiss" href="#">Dismiss</a>
+					</p>
+				</div>
 				<?php
 			}
 		);
@@ -157,23 +156,23 @@ class Offer {
 			'admin_footer',
 			function () {
 				?>
-                <script type="text/javascript">
-                    (function ($) {
-                        $(function () {
-                            setTimeout(function () {
-                                $('div[data-rtbrbfdismissable] .notice-dismiss, div[data-rtbrbfdismissable] .button-dismiss')
-                                    .on('click', function (e) {
-                                        e.preventDefault();
-                                        $.post(ajaxurl, {
-                                            'action': 'rtbr_dismiss_admin_black_friday_notice',
-                                            'nonce': <?php echo wp_json_encode( wp_create_nonce( 'rtbr-black-friday-offer-2023' ) ); ?>
-                                        });
-                                        $(e.target).closest('.is-dismissible').remove();
-                                    });
-                            }, 1000);
-                        });
-                    })(jQuery);
-                </script>
+				<script type="text/javascript">
+					(function ($) {
+						$(function () {
+							setTimeout(function () {
+								$('div[data-rtbrbfdismissable] .notice-dismiss, div[data-rtbrbfdismissable] .button-dismiss')
+									.on('click', function (e) {
+										e.preventDefault();
+										$.post(ajaxurl, {
+											'action': 'rtbr_dismiss_admin_black_friday_notice',
+											'nonce': <?php echo wp_json_encode( wp_create_nonce( 'rtbr-black-friday-offer-2023' ) ); ?>
+										});
+										$(e.target).closest('.is-dismissible').remove();
+									});
+							}, 1000);
+						});
+					})(jQuery);
+				</script>
 				<?php
 			}
 		);
@@ -188,9 +187,4 @@ class Offer {
 			}
 		);
 	}
-
-
-
-
-
 }

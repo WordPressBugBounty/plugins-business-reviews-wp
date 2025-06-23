@@ -1,10 +1,10 @@
-<?php 
+<?php
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} 
+}
 /**
  * Support Settings
- */ 
+ */
 ?>
 <style>
 .rtbr-support {
@@ -23,8 +23,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 .rtbr-support-subhead {
 	font-weight: 500;
-    color: #444 !important;
-    margin-bottom: -5px !important;
+	color: #444 !important;
+	margin-bottom: -5px !important;
 }
 </style>
 <div class="wrap rtbr-support" >  
@@ -34,12 +34,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<h3 class="rt-box-title">How to use Widget for Google Reviews?</h3>
 			<iframe width="560" height="315" src="https://www.youtube.com/embed/DfJ1z3bXxuk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 			
-			<h3 class="rt-box-title" style="margin-top: 20px;"><?php esc_html_e( "Online Documentation", "business-reviews-wp" ); ?></h3>
+			<h3 class="rt-box-title" style="margin-top: 20px;"><?php esc_html_e( 'Online Documentation', 'business-reviews-wp' ); ?></h3>
 			<p>
-				<?php esc_html_e( "From our online documentation, you will know how to use our pluign. <br> If you face any issue please create a ticket. We will provide you solution as soon as possible.", "business-reviews-wp" ); ?>
+				<?php esc_html_e( 'From our online documentation, you will know how to use our pluign. <br> If you face any issue please create a ticket. We will provide you solution as soon as possible.', 'business-reviews-wp' ); ?>
 			</p> 
-			<a class="rt-admin-btn" target="_blank" href="https://www.radiustheme.com/docs/business-reviews/business-reviews/" target="_blank"><?php esc_html_e( "Online documentation", "business-reviews-wp" ); ?></a>
-			<a class="rt-admin-btn" target="_blank" href="https://www.radiustheme.com/contact/" target="_blank"><?php esc_html_e( "Get Support", "business-reviews-wp" ); ?></a>
+			<a class="rt-admin-btn" target="_blank" href="https://www.radiustheme.com/docs/business-reviews/business-reviews/" target="_blank"><?php esc_html_e( 'Online documentation', 'business-reviews-wp' ); ?></a>
+			<a class="rt-admin-btn" target="_blank" href="https://www.radiustheme.com/contact/" target="_blank"><?php esc_html_e( 'Get Support', 'business-reviews-wp' ); ?></a>
 		</div>
 	</div> 
 	

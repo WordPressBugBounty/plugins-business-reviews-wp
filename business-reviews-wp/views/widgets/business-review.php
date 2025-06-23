@@ -7,17 +7,20 @@
 	<label for="<?php echo esc_attr( $this->get_field_id( 'shortcode_id' ) ); ?>"><?php esc_html_e( 'Select Shortcode:', 'business-reviews-wp' ); ?></label>
 	<select class="widefat" id="<?php echo esc_attr( $this->get_field_id( 'shortcode_id' ) ); ?>" name="<?php echo esc_attr( $this->get_field_name( 'shortcode_id' ) ); ?>">
 	<option value=""><?php esc_html_e( 'Select', 'business-reviews-wp' ); ?></option>
-    <?php 
-		$shortcode_args = new WP_Query(array(
-			'post_type' => rtbr()->getPostType(),
-		));
+	<?php
+		$shortcode_args = new WP_Query(
+			array(
+				'post_type' => rtbr()->getPostType(),
+			)
+		);
 
-		while( $shortcode_args->have_posts() ): $shortcode_args->the_post(); 
+		while ( $shortcode_args->have_posts() ) :
+			$shortcode_args->the_post();
 			$selected = ( $instance['shortcode_id'] == get_the_ID() ) ? 'selected' : '';
-			echo '<option '. esc_attr( $selected ) .' value="'. esc_attr( get_the_ID() ) .'">'. esc_attr( get_the_title() ) .'</option>';
+			echo '<option ' . esc_attr( $selected ) . ' value="' . esc_attr( get_the_ID() ) . '">' . esc_attr( get_the_title() ) . '</option>';
 
-		endwhile; 
+		endwhile;
 		wp_reset_postdata();
-	?>
+		?>
 	</select>
 </p>

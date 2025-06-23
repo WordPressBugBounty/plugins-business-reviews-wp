@@ -1,6 +1,6 @@
 <?php
 
-namespace Rtbr\Models; 
+namespace Rtbr\Models;
 
 use Rtbr\Helpers\Functions;
 
@@ -42,7 +42,7 @@ abstract class SettingsAPI {
 	protected $data = array();
 
 	public static $messages = array();
-	public static $errors = array();
+	public static $errors   = array();
 
 
 	/**
@@ -75,11 +75,11 @@ abstract class SettingsAPI {
 	 */
 	public function save() {
 		if ( ! isset( $_SERVER['REQUEST_METHOD'] )
-            || 'POST' !== $_SERVER['REQUEST_METHOD']
-		    || ! isset( $_REQUEST['post_type'] )
-		    || ! isset( $_REQUEST['page'] )
-		    || ( isset( $_REQUEST['post_type'] ) && rtbr()->getPostType() !== $_REQUEST['post_type'] )
-		    || ( isset( $_REQUEST['rtbr_settings'] ) && 'rtbr_settings' !== $_REQUEST['rtbr_settings'] )
+			|| 'POST' !== $_SERVER['REQUEST_METHOD']
+			|| ! isset( $_REQUEST['post_type'] )
+			|| ! isset( $_REQUEST['page'] )
+			|| ( isset( $_REQUEST['post_type'] ) && rtbr()->getPostType() !== $_REQUEST['post_type'] )
+			|| ( isset( $_REQUEST['rtbr_settings'] ) && 'rtbr_settings' !== $_REQUEST['rtbr_settings'] )
 		) {
 			return;
 		}
@@ -88,26 +88,25 @@ abstract class SettingsAPI {
 		}
 
 		// Find the active tab
-        $this->option = $this->active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), $this->tabs ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
-		 
+		$this->option = $this->active_tab = isset( $_GET['tab'] ) && array_key_exists( sanitize_key( wp_unslash( $_GET['tab'] ) ), $this->tabs ) ? sanitize_key( wp_unslash( $_GET['tab'] ) ) : 'general';
+
 		if ( ! empty( $this->subtabs ) ) {
 
-            $this->current_section = isset( $_GET['section'] ) && in_array(
-                sanitize_key( wp_unslash( $_GET['section'] ) ),
-                array_filter( array_keys( $this->subtabs ) )
-            ) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : '';
+			$this->current_section = isset( $_GET['section'] ) && in_array(
+				sanitize_key( wp_unslash( $_GET['section'] ) ),
+				array_filter( array_keys( $this->subtabs ) )
+			) ? sanitize_key( wp_unslash( $_GET['section'] ) ) : '';
 
-
-			$this->option          = ! empty( $this->current_section ) ? $this->option . '_' . $this->current_section : $this->active_tab . "_settings";
+			$this->option = ! empty( $this->current_section ) ? $this->option . '_' . $this->current_section : $this->active_tab . '_settings';
 		} else {
-			$this->option = $this->option . "_settings";
+			$this->option = $this->option . '_settings';
 		}
 
-		$this->process_admin_options();  
+		$this->process_admin_options();
 		self::add_message( esc_html__( 'Your settings have been saved.', 'business-reviews-wp' ) );
-        update_option( 'rtbr_queue_flush_rewrite_rules', 'yes' );
-        rtbr()->query->init_query_vars();
-        rtbr()->query->add_endpoints();
+		update_option( 'rtbr_queue_flush_rewrite_rules', 'yes' );
+		rtbr()->query->init_query_vars();
+		rtbr()->query->add_endpoints();
 
 		do_action( 'rtbr_admin_settings_saved', $this->option, $this );
 	}
@@ -117,9 +116,11 @@ abstract class SettingsAPI {
 	 *
 	 * @return array of options
 	 */
-	public function get_form_fields() { 
-		return apply_filters( 'rtbr_settings_api_form_fields_' . $this->option,
-			array_map( array( $this, 'set_defaults' ), $this->form_fields ) );
+	public function get_form_fields() {
+		return apply_filters(
+			'rtbr_settings_api_form_fields_' . $this->option,
+			array_map( array( $this, 'set_defaults' ), $this->form_fields )
+		);
 	}
 
 	/**
@@ -142,7 +143,7 @@ abstract class SettingsAPI {
 	 */
 	public function admin_options() {
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-        echo '<table class="form-table">' . $this->generate_settings_html( $this->get_form_fields() ) . '</table>';
+		echo '<table class="form-table">' . $this->generate_settings_html( $this->get_form_fields() ) . '</table>';
 	}
 
 	/**
@@ -192,22 +193,22 @@ abstract class SettingsAPI {
 	 * Get a field's posted and validated value.
 	 *
 	 * @param string $key
-	 * @param array $field
-	 * @param array $post_data
+	 * @param array  $field
+	 * @param array  $post_data
 	 *
 	 * @return string
 	 */
 	public function get_field_value( $key, $field, $post_data = array() ) {
-		$type = $this->get_field_type( $field );
+		$type      = $this->get_field_type( $field );
 		$field_key = $key;
-		$post_data = empty( $post_data ) ? $_POST : $post_data;
-        if ( isset( $_POST[ $this->get_option_key() ] ) ) {
-            $raw_post_data = wp_unslash( $_POST[ $this->get_option_key() ] );
-            $post_data = array_map( 'sanitize_text_field', $raw_post_data );
-        } else {
-            $post_data = array();
-        }
-		$value     = isset( $post_data[ $field_key ] ) ? $post_data[ $field_key ] : null;
+		$post_data = empty( $post_data ) ? $_POST : $post_data;  //phpcs:ignore WordPress.Security.NonceVerification.Missing
+		if ( isset( $_POST[ $this->get_option_key() ] ) ) {  //phpcs:ignore WordPress.Security.NonceVerification.Missing
+			$raw_post_data = wp_unslash( $_POST[ $this->get_option_key() ] );  //phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			$post_data     = array_map( 'sanitize_text_field', $raw_post_data );
+		} else {
+			$post_data = array();
+		}
+		$value = isset( $post_data[ $field_key ] ) ? $post_data[ $field_key ] : null;
 
 		// Look for a validate_FIELDID_field method for special handling
 		if ( is_callable( array( $this, 'validate_' . $key . '_field' ) ) ) {
@@ -238,15 +239,13 @@ abstract class SettingsAPI {
 	 *
 	 * @return array
 	 */
-
-    public function get_post_data() {
-        if ( ! empty( $this->data ) && is_array( $this->data ) ) {
-            return $this->data;
-        }
-        return isset( $_POST[ $this->get_option_key() ] )
-            ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST[ $this->get_option_key() ] ) )
-            : array();
-    }
+	public function get_post_data() {
+		if ( ! empty( $this->data ) && is_array( $this->data ) ) {
+			return $this->data;
+		}
+        //phpcs:ignore WordPress.Security.NonceVerification.Missing
+		return isset( $_POST[ $this->get_option_key() ] ) ? array_map( 'sanitize_text_field', wp_unslash( (array) $_POST[ $this->get_option_key() ] ) ) : array();
+	}
 
 	/**
 	 * Processes and saves options.
@@ -317,13 +316,15 @@ abstract class SettingsAPI {
 	 * @uses  get_option(), add_option()
 	 */
 	public function init_settings() {
-		$this->settings = get_option( $this->get_option_key(), null ); 
+		$this->settings = get_option( $this->get_option_key(), null );
 
 		// If there are no settings defined, use defaults.
 		if ( ! is_array( $this->settings ) ) {
 			$form_fields    = $this->get_form_fields();
-			$this->settings = array_merge( array_fill_keys( array_keys( $form_fields ), '' ),
-				wp_list_pluck( $form_fields, 'default' ) );
+			$this->settings = array_merge(
+				array_fill_keys( array_keys( $form_fields ), '' ),
+				wp_list_pluck( $form_fields, 'default' )
+			);
 		}
 	}
 
@@ -333,7 +334,7 @@ abstract class SettingsAPI {
 	 * Gets an option from the settings API, using defaults if necessary to prevent undefined notices.
 	 *
 	 * @param string $key
-	 * @param mixed $empty_value
+	 * @param mixed  $empty_value
 	 *
 	 * @return string The value specified for the option or a default value for the option.
 	 */
@@ -377,7 +378,7 @@ abstract class SettingsAPI {
 	 * Generate the HTML for the fields on the "settings" screen.
 	 *
 	 * @param array $form_fields (default: array())
-	 * @param bool $echo
+	 * @param bool  $echo
 	 *
 	 * @return string the html for the settings
 	 * @since  1.0.0
@@ -474,30 +475,38 @@ abstract class SettingsAPI {
 		$id            = $this->get_field_id( $key );
 		$defaults      = $this->get_placeholder_data();
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <input class="input-text regular-input <?php echo esc_attr( $data['class'] ); ?>"
-                           type="<?php echo esc_attr( $data['type'] ); ?>" name="<?php echo esc_attr( $field_key ); ?>"
-                           id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
-                           value="<?php echo esc_attr( $this->get_option( $key ) ); ?>"
-                           placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) );
-                        ?> />
-					<?php echo wp_kses_post( $this->get_description_html( $data ) ) ?>
-                </fieldset>
-            </td>
-        </tr>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<input class="input-text regular-input <?php echo esc_attr( $data['class'] ); ?>"
+						   type="<?php echo esc_attr( $data['type'] ); ?>" name="<?php echo esc_attr( $field_key ); ?>"
+						   id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
+						   value="<?php echo esc_attr( $this->get_option( $key ) ); ?>"
+						   placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" 
+						   <?php
+							disabled(
+								$data['disabled'],
+								true
+							);
+							?>
+						<?php
+						echo wp_kses_post( $this->get_custom_attribute_html( $data ) );
+						?>
+						/>
+					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
+				</fieldset>
+			</td>
+		</tr>
 		<?php
 
 		return ob_get_clean();
@@ -508,47 +517,49 @@ abstract class SettingsAPI {
 		$id            = $this->get_field_id( $key );
 		$defaults      = $this->get_placeholder_data();
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 		$size          = $this->get_option( $key );
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input rtbr-image-size-wrap">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input rtbr-image-size-wrap">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
 					<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
-                        <div class='rtbr-image-size-item'>
+						<div class='rtbr-image-size-item'>
 							<?php
-							if ( $option_key == 'crop' ): ?>
-                                <label for="<?php echo esc_attr( $id ) . "-" . esc_attr( $option_key ); ?>">
-                                    <input type="checkbox"
-                                           name="<?php echo esc_attr( $field_key ); ?>[<?php echo esc_attr( $option_key ); ?>]"
-                                           id="<?php echo esc_attr( $id ) . "-" . esc_attr( $option_key ); ?>"
-                                           value="yes" <?php checked( isset( $size[ $option_key ] ) ? $size[ $option_key ] : null, 'yes' ); ?> />
+							if ( $option_key == 'crop' ) :
+								?>
+								<label for="<?php echo esc_attr( $id ) . '-' . esc_attr( $option_key ); ?>">
+									<input type="checkbox"
+										   name="<?php echo esc_attr( $field_key ); ?>[<?php echo esc_attr( $option_key ); ?>]"
+										   id="<?php echo esc_attr( $id ) . '-' . esc_attr( $option_key ); ?>"
+										   value="yes" <?php checked( isset( $size[ $option_key ] ) ? $size[ $option_key ] : null, 'yes' ); ?> />
 									<?php echo wp_kses_post( $option_value ); ?>
-                                </label><br/>
-							<?php else:
+								</label><br/>
+								<?php
+							else :
 								$value = ! empty( $size[ $option_key ] ) ? absint( esc_attr( $size[ $option_key ] ) ) : null;
 								?>
-                                <label for='<?php echo esc_attr( $id ) . "-" . esc_attr(  $option_key ); ?>'><?php echo wp_kses_post( $option_value ); ?></label>
-                                <input type='number'
-                                       name='<?php echo esc_attr( $field_key ); ?>[<?php echo esc_attr( $option_key ); ?>]'
-                                       id="<?php echo esc_attr( $id ) . "-" . esc_attr( $option_key ); ?>"
-                                       value="<?php echo esc_attr( $value ); ?>"
-                                />
+								<label for='<?php echo esc_attr( $id ) . '-' . esc_attr( $option_key ); ?>'><?php echo wp_kses_post( $option_value ); ?></label>
+								<input type='number'
+									   name='<?php echo esc_attr( $field_key ); ?>[<?php echo esc_attr( $option_key ); ?>]'
+									   id="<?php echo esc_attr( $id ) . '-' . esc_attr( $option_key ); ?>"
+									   value="<?php echo esc_attr( $value ); ?>"
+								/>
 							<?php endif; ?>
-                        </div>
+						</div>
 					<?php endforeach; ?>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
+				</fieldset>
+			</td>
+		</tr>
 		<?php
 
 		return ob_get_clean();
@@ -559,59 +570,60 @@ abstract class SettingsAPI {
 		$id              = $this->get_field_id( $key );
 		$defaults        = $this->get_placeholder_data();
 		$data            = wp_parse_args( $data, $defaults );
-		$wrapper_class   = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class   = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends         = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 		$value           = absint( $this->get_option( $key ) );
 		$placeholder_url = Functions::get_default_placeholder_url();
 		$image_src       = $value ? wp_get_attachment_thumb_url( $value ) : $placeholder_url;
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <div class="rtbr-setting-image-wrap">
-                        <input type="hidden" id="<?php echo esc_attr( $id ); ?>" class="rtbr-setting-image-id"
-                               value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $field_key ); ?>"/>
-                        <div class="image-preview-wrapper"
-                             data-placeholder="<?php echo esc_url( $placeholder_url ); ?>">
-                            <img src="<?php echo esc_url( $image_src ); ?>"/>
-                        </div>
-                        <input type="button" class="button button-secondary rtbr-add-image"
-                               value="<?php esc_attr_e( 'Add Image', 'business-reviews-wp' ); ?>"/>
-                        <input type="button" class="button button-secondary rtbr-remove-image"
-                               value="<?php esc_attr_e( 'Remove Image', 'business-reviews-wp' ); ?>"/>
-                    </div>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<div class="rtbr-setting-image-wrap">
+						<input type="hidden" id="<?php echo esc_attr( $id ); ?>" class="rtbr-setting-image-id"
+							   value="<?php echo esc_attr( $value ); ?>" name="<?php echo esc_attr( $field_key ); ?>"/>
+						<div class="image-preview-wrapper"
+							 data-placeholder="<?php echo esc_url( $placeholder_url ); ?>">
+                            <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
+							<img src="<?php echo esc_url( $image_src ); ?>" alt="Logo Image"/>
+						</div>
+						<input type="button" class="button button-secondary rtbr-add-image"
+							   value="<?php esc_attr_e( 'Add Image', 'business-reviews-wp' ); ?>"/>
+						<input type="button" class="button button-secondary rtbr-remove-image"
+							   value="<?php esc_attr_e( 'Remove Image', 'business-reviews-wp' ); ?>"/>
+					</div>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
+				</fieldset>
+			</td>
+		</tr>
 		<?php
 
 		return ob_get_clean();
 	}
 
 	public function generate_fb_login_btn_html( $key, $data ) {
-		$field_key       = $this->get_field_key( $key );
-		$id              = $this->get_field_id( $key );
-		$defaults        = $this->get_placeholder_data();
-		$data            = wp_parse_args( $data, $defaults );
-		$wrapper_class   = implode( " ", array( $id, $data['wrapper_class'] ) );
-		$depends         = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
-		$value           = absint( $this->get_option( $key ) ); 
+		$field_key     = $this->get_field_key( $key );
+		$id            = $this->get_field_id( $key );
+		$defaults      = $this->get_placeholder_data();
+		$data          = wp_parse_args( $data, $defaults );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
+		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
+		$value         = absint( $this->get_option( $key ) );
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
 
 			<fb:login-button 
 			scope="pages_show_list,pages_read_user_content,pages_read_engagement"
@@ -621,7 +633,7 @@ abstract class SettingsAPI {
 			<script>
 				window.fbAsyncInit = function() {
 					FB.init({ 
-					appId      : '<?php echo esc_js( rtbr()->get_options('rtbr_facebook_settings', array('fb_app_id', '713789302671576') ) ); ?>',
+					appId      : '<?php echo esc_js( rtbr()->get_options( 'rtbr_facebook_settings', array( 'fb_app_id', '713789302671576' ) ) ); ?>',
 					cookie     : true,
 					xfbml      : true,
 					version    : 'v2.0'
@@ -646,7 +658,7 @@ abstract class SettingsAPI {
 							jQuery.ajax({
 								type: "post",
 								dataType: "json",
-								url: "<?php echo esc_url( admin_url( "admin-ajax.php" ) ); ?>",
+								url: "<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>",
 								data: {
 									action: "rtbr_fb_page_access_token", 
 									user_id: userID, 
@@ -671,8 +683,8 @@ abstract class SettingsAPI {
 				} 
 			</script>
 				<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-            </td>
-        </tr>
+			</td>
+		</tr>
 		<?php
 
 		return ob_get_clean();
@@ -693,31 +705,37 @@ abstract class SettingsAPI {
 		$defaults  = $this->get_placeholder_data();
 
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <input class="rtbr_input_price input-text regular-input <?php echo esc_attr( $data['class'] ); ?>"
-                           type="text" name="<?php echo esc_attr( $field_key ); ?>"
-                           id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
-                           value="<?php echo esc_attr( Functions::format_decimal( $this->get_option( $key ) ) ); ?>"
-                           placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<input class="rtbr_input_price input-text regular-input <?php echo esc_attr( $data['class'] ); ?>"
+						   type="text" name="<?php echo esc_attr( $field_key ); ?>"
+						   id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
+						   value="<?php echo esc_attr( Functions::format_decimal( $this->get_option( $key ) ) ); ?>"
+						   placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" 
+						   <?php
+							disabled(
+								$data['disabled'],
+								true
+							);
+							?>
+						<?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
@@ -736,30 +754,36 @@ abstract class SettingsAPI {
 		$defaults  = $this->get_placeholder_data();
 
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <input class="rtbr_input_decimal input-text regular-input <?php echo esc_attr( $data['class'] ); ?>"
-                           type="text" name="<?php echo esc_attr( $field_key ); ?>"
-                           id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
-                           value="<?php echo esc_attr( Functions::format_decimal( $this->get_option( $key ) ) ); ?>"
-                           placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<input class="rtbr_input_decimal input-text regular-input <?php echo esc_attr( $data['class'] ); ?>"
+						   type="text" name="<?php echo esc_attr( $field_key ); ?>"
+						   id="<?php echo esc_attr( $id ); ?>" style="<?php echo esc_attr( $data['css'] ); ?>"
+						   value="<?php echo esc_attr( Functions::format_decimal( $this->get_option( $key ) ) ); ?>"
+						   placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" 
+						   <?php
+							disabled(
+								$data['disabled'],
+								true
+							);
+							?>
+						<?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
+				</fieldset>
+			</td>
+		</tr>
 		<?php
 
 		return ob_get_clean();
@@ -775,7 +799,7 @@ abstract class SettingsAPI {
 	 * @since  1.0.0
 	 */
 	public function generate_password_html( $key, $data ) {
-		$data['type'] = 'password'; 
+		$data['type'] = 'password';
 		return $this->generate_text_html( $key, $data );
 	}
 
@@ -794,30 +818,35 @@ abstract class SettingsAPI {
 		$defaults  = $this->get_placeholder_data();
 
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <input class="rtbr-color <?php echo esc_attr( $data['class'] ); ?>" type="text"
-                           name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
-                           style="<?php echo esc_attr( $data['css'] ); ?>"
-                           value="<?php echo esc_attr( $this->get_option( $key ) ); ?>"
-						<?php disabled( $data['disabled'],
-							true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<input class="rtbr-color <?php echo esc_attr( $data['class'] ); ?>" type="text"
+						   name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
+						   style="<?php echo esc_attr( $data['css'] ); ?>"
+						   value="<?php echo esc_attr( $this->get_option( $key ) ); ?>"
+						<?php
+						disabled(
+							$data['disabled'],
+							true
+						);
+						?>
+							<?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> />
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
+				</fieldset>
+			</td>
+		</tr>
 		<?php
 
 		return ob_get_clean();
@@ -833,58 +862,64 @@ abstract class SettingsAPI {
 	 * @since  1.0.0
 	 */
 	public function generate_textarea_html( $key, $data ) {
-		$field_key = $this->get_field_key( $key );
-		$id        = $this->get_field_id( $key );
-		$defaults  = $this->get_placeholder_data(); 
+		$field_key     = $this->get_field_key( $key );
+		$id            = $this->get_field_id( $key );
+		$defaults      = $this->get_placeholder_data();
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <textarea rows="3" cols="20" class="input-text wide-input <?php echo esc_attr( $data['class'] ); ?>"
-                              type="<?php echo esc_attr( $data['type'] ); ?>"
-                              name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
-                              style="<?php echo esc_attr( $data['css'] ); ?>"
-                              placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>><?php echo esc_textarea( $this->get_option( $key ) ); ?></textarea>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<textarea rows="3" cols="20" class="input-text wide-input <?php echo esc_attr( $data['class'] ); ?>"
+							  type="<?php echo esc_attr( $data['type'] ); ?>"
+							  name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
+							  style="<?php echo esc_attr( $data['css'] ); ?>"
+							  placeholder="<?php echo esc_attr( $data['placeholder'] ); ?>" 
+							  <?php
+								disabled(
+									$data['disabled'],
+									true
+								);
+								?>
+						<?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>><?php echo esc_textarea( $this->get_option( $key ) ); ?></textarea>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
 	public function generate_wysiwyg_html( $key, $data ) {
 
-		$field_key = $this->get_field_key( $key );
-		$id        = $this->get_field_id( $key );
-		$defaults  = $this->get_placeholder_data(); 
+		$field_key     = $this->get_field_key( $key );
+		$id            = $this->get_field_id( $key );
+		$defaults      = $this->get_placeholder_data();
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
 					<?php
 					wp_editor(
 						htmlspecialchars_decode( $this->get_option( $key ) ),
@@ -893,17 +928,17 @@ abstract class SettingsAPI {
 							'textarea_name' => esc_attr( $field_key ),
 							'media_buttons' => false,
 							'quicktags'     => true,
-							'editor_height' => 250
+							'editor_height' => 250,
 						)
 					);
 
 					echo '<pre>' . wp_kses_post( $this->get_description_html( $data ) ) . '</pre>';
 
 					?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
@@ -922,7 +957,7 @@ abstract class SettingsAPI {
 		$defaults  = $this->get_placeholder_data();
 
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		if ( ! $data['label'] ) {
@@ -931,29 +966,35 @@ abstract class SettingsAPI {
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <label for="<?php echo esc_attr( $id ); ?>">
-                        <input <?php disabled( $data['disabled'], true ); ?>
-                                class="<?php echo esc_attr( $data['class'] ); ?>" type="checkbox"
-                                name="<?php echo esc_attr( $field_key ); ?>"
-                                id="<?php echo esc_attr( $id ); ?>"
-                                style="<?php echo esc_attr( $data['css'] ); ?>"
-                                value="yes" <?php checked( $this->get_option( $key ),
-							'yes' ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> /> <?php echo wp_kses_post( $data['label'] ); ?>
-                    </label><br/>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<label for="<?php echo esc_attr( $id ); ?>">
+						<input <?php disabled( $data['disabled'], true ); ?>
+								class="<?php echo esc_attr( $data['class'] ); ?>" type="checkbox"
+								name="<?php echo esc_attr( $field_key ); ?>"
+								id="<?php echo esc_attr( $id ); ?>"
+								style="<?php echo esc_attr( $data['css'] ); ?>"
+								value="yes" 
+								<?php
+								checked(
+									$this->get_option( $key ),
+									'yes'
+								);
+								?>
+							<?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?> /> <?php echo wp_kses_post( $data['label'] ); ?>
+					</label><br/>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
@@ -966,13 +1007,12 @@ abstract class SettingsAPI {
 	 * @return string
 	 * @since  1.0.0
 	 */
-
 	public function generate_multi_checkbox_html( $key, $data ) {
-		$field_key = $this->get_field_key( $key );
-		$id        = $this->get_field_id( $key );
-		$defaults  = $this->get_placeholder_data(); 
+		$field_key     = $this->get_field_key( $key );
+		$id            = $this->get_field_id( $key );
+		$defaults      = $this->get_placeholder_data();
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		if ( ! $data['label'] ) {
@@ -982,30 +1022,30 @@ abstract class SettingsAPI {
 		$values = is_array( $values ) ? $values : array();
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
 					<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
-                        <label for="<?php echo esc_attr( $id . "-" . $option_key ); ?>">
-                            <input class="<?php echo esc_attr( $data['class'] ); ?>" type="checkbox"
-                                   name="<?php echo esc_attr( $field_key ); ?>[]"
-                                   id="<?php echo esc_attr( $id . "-" . $option_key ); ?>"
-                                   value="<?php echo esc_attr( $option_key ); ?>"
+						<label for="<?php echo esc_attr( $id . '-' . $option_key ); ?>">
+							<input class="<?php echo esc_attr( $data['class'] ); ?>" type="checkbox"
+								   name="<?php echo esc_attr( $field_key ); ?>[]"
+								   id="<?php echo esc_attr( $id . '-' . $option_key ); ?>"
+								   value="<?php echo esc_attr( $option_key ); ?>"
 								<?php checked( in_array( $option_key, $values ) ); ?> />
 							<?php echo esc_attr( $option_value ); ?>
-                        </label><br/>
+						</label><br/>
 					<?php endforeach; ?>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
@@ -1024,37 +1064,49 @@ abstract class SettingsAPI {
 		$defaults  = $this->get_placeholder_data();
 
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <select class="select <?php echo esc_attr( $data['class'] ); ?>"
-                            name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
-                            style="<?php echo esc_attr( $data['css'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>>
-						<?php if ( ! empty( $data['blank'] ) ): ?>
-                            <option value="<?php echo esc_attr( $data['blank_value'] ); ?>"><?php echo esc_html( $data['blank_text'] ); ?></option>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<select class="select <?php echo esc_attr( $data['class'] ); ?>"
+							name="<?php echo esc_attr( $field_key ); ?>" id="<?php echo esc_attr( $id ); ?>"
+							style="<?php echo esc_attr( $data['css'] ); ?>" 
+							<?php
+							disabled(
+								$data['disabled'],
+								true
+							);
+							?>
+						<?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>>
+						<?php if ( ! empty( $data['blank'] ) ) : ?>
+							<option value="<?php echo esc_attr( $data['blank_value'] ); ?>"><?php echo esc_html( $data['blank_text'] ); ?></option>
 						<?php endif; ?>
 						<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
-                            <option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( $option_key,
-								esc_attr( $this->get_option( $key ) ) ); ?>><?php echo esc_html( $option_value ); ?></option>
+							<option value="<?php echo esc_attr( $option_key ); ?>" 
+							<?php
+							selected(
+								$option_key,
+								esc_attr( $this->get_option( $key ) )
+							);
+							?>
+								><?php echo esc_html( $option_value ); ?></option>
 						<?php endforeach; ?>
-                    </select>
+					</select>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
@@ -1068,36 +1120,41 @@ abstract class SettingsAPI {
 	 * @since  1.0.0
 	 */
 	public function generate_radio_html( $key, $data ) {
-		$field_key = $this->get_field_key( $key );
-		$id        = $this->get_field_id( $key );
-		$defaults  = $this->get_placeholder_data(); 
+		$field_key     = $this->get_field_key( $key );
+		$id            = $this->get_field_id( $key );
+		$defaults      = $this->get_placeholder_data();
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
 					<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
-                        <label><input type="radio" name="<?php echo esc_attr( $field_key ); ?>"
-                                      value="<?php echo esc_attr( $option_key ) ?>"
-								<?php checked( $option_key,
-									$this->get_option( $key ) ) ?> > <?php echo wp_kses_post( $option_value ) ?></label>
-                        <br>
+						<label><input type="radio" name="<?php echo esc_attr( $field_key ); ?>"
+									  value="<?php echo esc_attr( $option_key ); ?>"
+								<?php
+								checked(
+									$option_key,
+									$this->get_option( $key )
+								)
+								?>
+									> <?php echo wp_kses_post( $option_value ); ?></label>
+						<br>
 					<?php endforeach; ?>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
@@ -1111,44 +1168,59 @@ abstract class SettingsAPI {
 	 * @since  1.0.0
 	 */
 	public function generate_multiselect_html( $key, $data ) {
-		$field_key = $this->get_field_key( $key );
-		$id        = $this->get_field_id( $key );
-		$defaults  = $this->get_placeholder_data(); 
+		$field_key     = $this->get_field_key( $key );
+		$id            = $this->get_field_id( $key );
+		$defaults      = $this->get_placeholder_data();
 		$data          = wp_parse_args( $data, $defaults );
-		$wrapper_class = implode( " ", array( $id, $data['wrapper_class'] ) );
+		$wrapper_class = implode( ' ', array( $id, $data['wrapper_class'] ) );
 		$depends       = empty( $data['dependency'] ) ? '' : "data-rt-depends='" . wp_json_encode( $data['dependency'] ) . "'";
 		$value         = (array) $this->get_option( $key, array() );
 		ob_start();
 		?>
-        <tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post($depends); ?>>
-            <th scope="row" class="title-desc">
+		<tr valign="top" class="<?php echo esc_attr( $wrapper_class ); ?>" <?php echo wp_kses_post( $depends ); ?>>
+			<th scope="row" class="title-desc">
 				<?php echo esc_html( $this->get_tooltip_html( $data ) ); ?>
-                <label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
-            </th>
-            <td class="form-input">
-                <fieldset>
-                    <legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
-                    </legend>
-                    <select multiple="multiple" class="multiselect <?php echo esc_attr( $data['class'] ); ?>"
-                            name="<?php echo esc_attr( $field_key ); ?>[]" id="<?php echo esc_attr( $id ); ?>"
-                            style="<?php echo esc_attr( $data['css'] ); ?>" <?php disabled( $data['disabled'],
-						true ); ?> <?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>>
+				<label for="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></label>
+			</th>
+			<td class="form-input">
+				<fieldset>
+					<legend class="screen-reader-text"><span><?php echo wp_kses_post( $data['title'] ); ?></span>
+					</legend>
+					<select multiple="multiple" class="multiselect <?php echo esc_attr( $data['class'] ); ?>"
+							name="<?php echo esc_attr( $field_key ); ?>[]" id="<?php echo esc_attr( $id ); ?>"
+							style="<?php echo esc_attr( $data['css'] ); ?>" 
+							<?php
+							disabled(
+								$data['disabled'],
+								true
+							);
+							?>
+						<?php echo wp_kses_post( $this->get_custom_attribute_html( $data ) ); ?>>
 						<?php foreach ( (array) $data['options'] as $option_key => $option_value ) : ?>
-                            <option value="<?php echo esc_attr( $option_key ); ?>" <?php selected( in_array( $option_key,
-								$value ), true ); ?>><?php echo esc_html( $option_value ); ?></option>
+							<option value="<?php echo esc_attr( $option_key ); ?>" 
+							<?php
+							selected(
+								in_array(
+									$option_key,
+									$value
+								),
+								true
+							);
+							?>
+								><?php echo esc_html( $option_value ); ?></option>
 						<?php endforeach; ?>
-                    </select>
+					</select>
 					<?php echo wp_kses_post( $this->get_description_html( $data ) ); ?>
 					<?php if ( $data['select_buttons'] ) : ?>
-                        <br/><a class="select_all button"
-                                href="#"><?php esc_html_e( 'Select all', 'business-reviews-wp' ); ?></a> <a
-                                class="select_none button"
-                                href="#"><?php esc_html_e( 'Select none', 'business-reviews-wp' ); ?></a>
+						<br/><a class="select_all button"
+								href="#"><?php esc_html_e( 'Select all', 'business-reviews-wp' ); ?></a> <a
+								class="select_none button"
+								href="#"><?php esc_html_e( 'Select none', 'business-reviews-wp' ); ?></a>
 					<?php endif; ?>
-                </fieldset>
-            </td>
-        </tr>
-		<?php 
+				</fieldset>
+			</td>
+		</tr>
+		<?php
 		return ob_get_clean();
 	}
 
@@ -1173,14 +1245,14 @@ abstract class SettingsAPI {
 
 		ob_start();
 		?>
-        </table>
-        <h3 class="rtbr-settings-sub-title <?php echo esc_attr( $data['class'] ); ?>"
-            id="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></h3>
+		</table>
+		<h3 class="rtbr-settings-sub-title <?php echo esc_attr( $data['class'] ); ?>"
+			id="<?php echo esc_attr( $id ); ?>"><?php echo wp_kses_post( $data['title'] ); ?></h3>
 		<?php if ( ! empty( $data['description'] ) ) : ?>
-            <p><?php echo wp_kses_post( $data['description'] ); ?></p>
+			<p><?php echo wp_kses_post( $data['description'] ); ?></p>
 		<?php endif; ?>
-        <table class="form-table">
-		<?php 
+		<table class="form-table">
+		<?php
 		return ob_get_clean();
 	}
 
@@ -1189,13 +1261,13 @@ abstract class SettingsAPI {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param string $key Field key
+	 * @param string      $key Field key
 	 * @param string|null $value Posted Value
 	 *
 	 * @return string
 	 */
 	public function validate_text_field( $key, $value ) {
-		$value = is_null( $value ) ? '' : $value; 
+		$value = is_null( $value ) ? '' : $value;
 		return wp_kses_post( trim( stripslashes( $value ) ) );
 	}
 
@@ -1204,13 +1276,13 @@ abstract class SettingsAPI {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param string $key
+	 * @param string      $key
 	 * @param string|null $value Posted Value
 	 *
 	 * @return string
 	 */
 	public function validate_price_field( $key, $value ) {
-		$value = is_null( $value ) ? '' : $value; 
+		$value = is_null( $value ) ? '' : $value;
 		return ( '' === $value ) ? '' : Functions::get_formatted_amount( trim( stripslashes( $value ) ), true );
 	}
 
@@ -1219,33 +1291,33 @@ abstract class SettingsAPI {
 	 *
 	 * Make sure the data is escaped correctly, etc.
 	 *
-	 * @param string $key
+	 * @param string      $key
 	 * @param string|null $value Posted Value
 	 *
 	 * @return string
 	 */
 	public function validate_decimal_field( $key, $value ) {
-		$value = is_null( $value ) ? '' : $value; 
+		$value = is_null( $value ) ? '' : $value;
 		return ( '' === $value ) ? '' : Functions::get_formatted_amount( trim( stripslashes( $value ) ), true );
 	}
 
 	/**
 	 * Validate Password Field. No input sanitization is used to avoid corrupting passwords.
 	 *
-	 * @param string $key
+	 * @param string      $key
 	 * @param string|null $value Posted Value
 	 *
 	 * @return string
 	 */
 	public function validate_password_field( $key, $value ) {
-		$value = is_null( $value ) ? '' : $value; 
+		$value = is_null( $value ) ? '' : $value;
 		return trim( stripslashes( $value ) );
 	}
 
 	/**
 	 * Validate Textarea Field.
 	 *
-	 * @param string $key
+	 * @param string      $key
 	 * @param string|null $value Posted Value
 	 *
 	 * @return string
@@ -1253,10 +1325,16 @@ abstract class SettingsAPI {
 	public function validate_textarea_field( $key, $value ) {
 		$value = is_null( $value ) ? '' : $value;
 
-		return wp_kses( trim( stripslashes( $value ) ),
+		return wp_kses(
+			trim( stripslashes( $value ) ),
 			array_merge(
 				array(
-					'iframe' => array( 'src' => true, 'style' => true, 'id' => true, 'class' => true ),
+					'iframe' => array(
+						'src'   => true,
+						'style' => true,
+						'id'    => true,
+						'class' => true,
+					),
 				),
 				wp_kses_allowed_html( 'post' )
 			)
@@ -1266,10 +1344,16 @@ abstract class SettingsAPI {
 	public function validate_wysiwyg_field( $key, $value ) {
 		$value = is_null( $value ) ? '' : $value;
 
-		return wp_kses( trim( stripslashes( $value ) ),
+		return wp_kses(
+			trim( stripslashes( $value ) ),
 			array_merge(
 				array(
-					'iframe' => array( 'src' => true, 'style' => true, 'id' => true, 'class' => true ),
+					'iframe' => array(
+						'src'   => true,
+						'style' => true,
+						'id'    => true,
+						'class' => true,
+					),
 				),
 				wp_kses_allowed_html( 'post' )
 			)
@@ -1281,7 +1365,7 @@ abstract class SettingsAPI {
 	 *
 	 * If not set, return "no", otherwise return "yes".
 	 *
-	 * @param string $key
+	 * @param string      $key
 	 * @param string|null $value Posted Value
 	 *
 	 * @return string
@@ -1299,7 +1383,7 @@ abstract class SettingsAPI {
 	 * @return string
 	 */
 	public function validate_select_field( $key, $value ) {
-		$value = is_null( $value ) ? '' : $value; 
+		$value = is_null( $value ) ? '' : $value;
 		return Functions::clean( stripslashes( $value ) );
 	}
 
@@ -1312,13 +1396,17 @@ abstract class SettingsAPI {
 	 * @return string|array
 	 */
 	public function validate_multiselect_field( $key, $value ) {
-		return is_array( $value ) ? array_map( array( Functions::class, 'clean' ),
-			array_map( 'stripslashes', $value ) ) : '';
+		return is_array( $value ) ? array_map(
+			array( Functions::class, 'clean' ),
+			array_map( 'stripslashes', $value )
+		) : '';
 	}
 
 	public function validate_image_size_field( $key, $value ) {
-		return is_array( $value ) ? array_map( array( Functions::class, 'clean' ),
-			array_map( 'stripslashes', $value ) ) : '';
+		return is_array( $value ) ? array_map(
+			array( Functions::class, 'clean' ),
+			array_map( 'stripslashes', $value )
+		) : '';
 	}
 
 	public function validate_image_field( $key, $value ) {
@@ -1334,9 +1422,11 @@ abstract class SettingsAPI {
 	 * @return string|array
 	 */
 	public function validate_multi_checkbox_field( $key, $value ) {
-		return is_array( $value ) ? array_map( array( Functions::class, 'clean' ),
-			array_map( 'stripslashes', $value ) ) : '';
-	} 
+		return is_array( $value ) ? array_map(
+			array( Functions::class, 'clean' ),
+			array_map( 'stripslashes', $value )
+		) : '';
+	}
 
 	private function get_placeholder_data() {
 		return array(
@@ -1358,5 +1448,5 @@ abstract class SettingsAPI {
 			'select_buttons'    => false,
 			'dependency'        => '',
 		);
-	} 
+	}
 }

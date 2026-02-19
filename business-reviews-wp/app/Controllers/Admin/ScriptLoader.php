@@ -3,7 +3,7 @@
 namespace Rtbr\Controllers\Admin;
 
 use Rtbr\Helpers\Functions;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class ScriptLoader {
 
 	private $suffix;
@@ -91,7 +91,7 @@ class ScriptLoader {
 
 	function load_admin_script_setting_page() {
         //phpcs:ignore WordPress.Security.NonceVerification.Recommended
-		if ( ! empty( $_GET['post_type'] ) && $_GET['post_type'] == rtbr()->getPostType() && ! empty( $_GET['page'] ) && $_GET['page'] == 'rtbr-settings' ) {
+		if ( ! empty( $_GET['post_type'] ) && sanitize_key( wp_unslash( $_GET['post_type'] ) ) == rtbr()->getPostType() && ! empty( $_GET['page'] ) && sanitize_key( wp_unslash( $_GET['page'] ) ) == 'rtbr-settings' ) {
 			wp_enqueue_media();
 			wp_enqueue_style( 'rtbr-admin' );
 			wp_enqueue_script( 'rtbr-admin' );

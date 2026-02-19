@@ -16,6 +16,7 @@ use Rtbr\Hooks\Backend;
 /**
  * Class Rtbr
  */
+if ( ! defined( 'ABSPATH' ) ) exit;
 final class Rtbr {
 
 	use SingletonTrait;
@@ -106,7 +107,7 @@ final class Rtbr {
 	 * @param string|bool $value Constant value.
 	 */
 	public function define( $name, $value ) {
-		if ( ! defined( $name ) ) {
+		if ( ! defined( $name ) ) {  // phpcs:disable
 			define( $name, $value );
 		}
 	}

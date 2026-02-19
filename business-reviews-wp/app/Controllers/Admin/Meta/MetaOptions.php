@@ -6,6 +6,7 @@ namespace Rtbr\Controllers\Admin\Meta;
  *
  * phpcs:disable WordPress.Security.NonceVerification.Recommended
  */
+if ( ! defined( 'ABSPATH' ) ) exit;
 class MetaOptions {
 
 	/**

@@ -1,7 +1,7 @@
 <?php
 
 namespace Rtbr\Widgets;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Widget {
 
 	public function __construct() {
@@ -19,7 +19,7 @@ class Widget {
 
 	public static function elementor_wordpress_widget_support( $default_widget_args, $object ) {
 		if ( false !== strpos( $object->get_widget_instance()->id_base, 'rtbr-widget-' ) ) {
-			$default_widget_args['before_widget'] = sprintf( '<div id="%1$s" class="widget %2$s">', $object->get_widget_instance()->id_base, $object->get_widget_instance()->widget_options['classname'] );
+			$default_widget_args['before_widget'] = sprintf( '<div id="%1$s" class="widget %2$s">', esc_attr( $object->get_widget_instance()->id_base ), esc_attr( $object->get_widget_instance()->widget_options['classname'] ) );
 			$default_widget_args['after_widget']  = '</div>';
 		}
 		return $default_widget_args;

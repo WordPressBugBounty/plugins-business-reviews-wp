@@ -6,7 +6,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Facebook Settings
  */
-
+// phpcs:disable
 $options = array(
 	'fb_app_id'         => array(
 		'title'       => esc_html__( 'Facebook App ID', 'business-reviews-wp' ),

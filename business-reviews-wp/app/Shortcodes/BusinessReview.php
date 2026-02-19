@@ -6,7 +6,7 @@ use Rtbr\Models\Api;
 use Rtbr\Models\Review;
 use Rtbr\Models\BusinessInfo;
 use Rtbr\Controllers\Admin\Meta\MetaOptions;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class BusinessReview {
 
 	public static function output( $atts ) {

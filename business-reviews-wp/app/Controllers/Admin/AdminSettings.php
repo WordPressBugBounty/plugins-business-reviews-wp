@@ -3,6 +3,7 @@
 namespace Rtbr\Controllers\Admin;
 
 use Rtbr\Models\SettingsAPI;
+if ( ! defined( 'ABSPATH' ) ) exit;
 
 class AdminSettings extends SettingsAPI {
 
@@ -62,6 +63,9 @@ class AdminSettings extends SettingsAPI {
 		if ( empty( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ) ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'rtbr-settings' ) ) {
 			die( esc_html__( 'Action failed. Please refresh the page and retry.', 'business-reviews-wp' ) );
 		}
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
 		$this->set_fields();
 		$this->process_admin_options();
 
@@ -109,7 +113,7 @@ class AdminSettings extends SettingsAPI {
 			delete_transient( 'rtbr_yelp_business_info' );
 			delete_transient( 'rtbr_yelp_reviews' );
 		} else {
-			switch ( $_REQUEST['tab'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+			switch ( sanitize_key(wp_unslash( $_REQUEST['tab'] )) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				// when general settings save by review type delete old data
 				case 'google':
 					delete_transient( 'rtbr_google_reviews' );

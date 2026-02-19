@@ -1,5 +1,6 @@
 <?php
-//phpcs:disable WordPress.Security.NonceVerification.Recommended
+if ( ! defined( 'ABSPATH' ) ) exit;
+//phpcs:disable
 
 $sc_meta = [];
 
@@ -31,7 +32,7 @@ $sc_meta['btn_bg_hover_color']   = isset( $_REQUEST['btn_bg_hover_color'] ) ? sa
 $sc_meta['btn_border_radius']    = isset( $_REQUEST['btn_border_radius'] ) ? sanitize_text_field( wp_unslash( $_REQUEST['btn_border_radius'] ) ) : get_post_meta( $sc_id, 'btn_border_radius', true );
 
 $css = null;
-if ( $value = $sc_meta['width'] ) {
+if ( $value = \Rtbr\Helpers\Functions::sanitize_css_dimension( $sc_meta['width'] ) ) {
 	$css .= "#review-list-content-{$sc_id} { ";
 	$css .= 'width:' . $value . ';';
 	$css .= '}';
@@ -45,16 +46,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .rt-review-top .rt-author-title a, #review-list-content-{$sc_id} .rt-badge-tab-style .rt-review-top .rt-author-title { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -67,16 +68,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .rt-review-top .rt-author-title a:hover { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -95,16 +96,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .rt-author-title a { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -117,16 +118,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .rt-author-title a:hover { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -140,16 +141,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} p { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -162,16 +163,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .rating-text { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -184,16 +185,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .rt-time-ago { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -206,16 +207,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .rating-text span { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -228,16 +229,16 @@ if ( ! empty( $title ) ) {
 	$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 	$css            .= "#review-list-content-{$sc_id} .powerd-by { ";
 	if ( $title_color ) {
-		$css .= 'color:' . $title_color . ';';
+		$css .= 'color:' . \Rtbr\Helpers\Functions::sanitize_css_color( $title_color ) . ';';
 	}
 	if ( $title_size ) {
 		$css .= 'font-size:' . $title_size . 'px;';
 	}
 	if ( $title_weight ) {
-		$css .= 'font-weight:' . $title_weight . ';';
+		$css .= 'font-weight:' . \Rtbr\Helpers\Functions::sanitize_css_weight( $title_weight ) . ';';
 	}
 	if ( $title_alignment ) {
-		$css .= 'text-align:' . $title_alignment . ';';
+		$css .= 'text-align:' . \Rtbr\Helpers\Functions::sanitize_css_align( $title_alignment ) . ';';
 	}
 	$css .= '}';
 }
@@ -386,7 +387,7 @@ if ( $value = $sc_meta['btn_bg_hover_color'] ) {
 	$css .= 'background:' . $value . ';';
 	$css .= '}';
 }
-if ( $value = $sc_meta['btn_border_radius'] ) {
+if ( $value = \Rtbr\Helpers\Functions::sanitize_css_dimension( $sc_meta['btn_border_radius'] ) ) {
 	$css .= "#review-list-content-{$sc_id} .rtbr-pagination.rt-loadmore-btn a { ";
 	$css .= 'border-radius:' . $value . ';';
 	$css .= '}';
@@ -421,7 +422,7 @@ if ( $value = $sc_meta['btn_bg_hover_color'] ) {
 	$css .= 'border-color:' . $value . ';';
 	$css .= '}';
 }
-if ( $value = $sc_meta['btn_border_radius'] ) {
+if ( $value = \Rtbr\Helpers\Functions::sanitize_css_dimension( $sc_meta['btn_border_radius'] ) ) {
 	$css .= "#review-list-content-{$sc_id} .rt-isotope-classes-tab .nav-item { ";
 	$css .= 'border-radius:' . $value . ';';
 	$css .= '}';

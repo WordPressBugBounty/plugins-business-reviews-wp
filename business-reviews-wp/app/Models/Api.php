@@ -1,7 +1,7 @@
 <?php
 
 namespace Rtbr\Models;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Api {
 
 	/**

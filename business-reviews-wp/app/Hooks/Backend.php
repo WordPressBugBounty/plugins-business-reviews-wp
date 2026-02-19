@@ -1,7 +1,7 @@
 <?php
 
 namespace Rtbr\Hooks;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Backend {
 	public function __construct() {
 		add_filter(
@@ -15,7 +15,7 @@ class Backend {
 
 	public function plugin_action_links( $links ) {
 		$new_links = array(
-			'<a href="' . admin_url( '/edit.php?post_type=rtbr&page=rtbr-settings' ) . '">' . __( 'Settings', 'business-reviews-wp' ) . '</a>',
+			'<a href="' . esc_url( admin_url( '/edit.php?post_type=rtbr&page=rtbr-settings' ) ) . '">' . esc_html__( 'Settings', 'business-reviews-wp' ) . '</a>',
 			'<a target="_blank" href="' . esc_url( 'https://www.radiustheme.com/demo/plugins/business-reviews/' ) . '">' . esc_html__( 'Demo', 'business-reviews-wp' ) . '</a>',
 			'<a target="_blank" href="' . esc_url( 'https://www.radiustheme.com/docs/business-reviews/business-reviews/' ) . '">' . esc_html__( 'Documentation', 'business-reviews-wp' ) . '</a>',
 		);

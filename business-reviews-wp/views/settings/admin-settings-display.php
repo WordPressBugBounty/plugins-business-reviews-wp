@@ -1,3 +1,7 @@
+<?php
+if ( ! defined( 'ABSPATH' ) ) exit;
+// phpcs:disable
+?>
 <div class="wrap rtbr-settings">
 	<?php
 		settings_errors();

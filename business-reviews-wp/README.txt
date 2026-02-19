@@ -3,9 +3,9 @@ Contributors: techlabpro1
 Donate link:
 Tags: reviews, google places reviews, google business, google reviews, rating, facebook reviews, facebook recommendations, yelp, yelp reviews
 Requires at least: 5.0
-Tested up to: 6.8
+Tested up to: 6.9
 Requires PHP: 7.0
-Stable tag: 1.0.16
+Stable tag: 1.0.17
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -98,6 +98,9 @@ It  required Yelp API key to get the Yelp reviews. See how to [create the Yelp A
 07. Settings
 
 == Changelog ==
+
+= 1.0.17 – February 19, 2026 =
+* Fixed: Minor Css Issue.
 
 = 1.0.16 – June 23, 2025 =
 * Updated: Implemented proper input sanitization and data validation for improved security and stability.

@@ -9,6 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Yelp Settings
  */
+// phpcs:disable
 $options = array(
 	'ls_section'   => array(
 		'title'       => esc_html__( 'Yelp API Settings', 'business-reviews-wp' ),

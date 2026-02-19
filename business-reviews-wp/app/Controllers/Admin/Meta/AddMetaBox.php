@@ -9,7 +9,7 @@ use Rtbr\Controllers\Admin\Meta\MetaOptions;
  *
  * phpcs:disable WordPress.Security.NonceVerification.Recommended
  */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class AddMetaBox {
 	function __construct() {
 		// actions
@@ -131,8 +131,8 @@ class AddMetaBox {
 		}
 		$html  = null;
 		$html .= '<div class="postbox rt-after-title" style="margin-bottom: 0;"><div class="inside">';
-		$html .= '<p><input type="text" onfocus="this.select();" readonly="readonly" value="[rt-business-review id=&quot;' . $post->ID . '&quot; title=&quot;' . $post->post_title . '&quot;]" class="large-text code rt-code-sc">
-        <input type="text" onfocus="this.select();" readonly="readonly" value="&#60;&#63;php echo do_shortcode( &#39;[rt-business-review id=&quot;' . $post->ID . '&quot; title=&quot;' . $post->post_title . '&quot;]&#39; ); &#63;&#62;" class="large-text code rt-code-sc">
+		$html .= '<p><input type="text" onfocus="this.select();" readonly="readonly" value="[rt-business-review id=&quot;' . esc_attr( $post->ID ) . '&quot; title=&quot;' . esc_attr( $post->post_title ) . '&quot;]" class="large-text code rt-code-sc">
+        <input type="text" onfocus="this.select();" readonly="readonly" value="&#60;&#63;php echo do_shortcode( &#39;[rt-business-review id=&quot;' . esc_attr( $post->ID ) . '&quot; title=&quot;' . esc_attr( $post->post_title ) . '&quot;]&#39; ); &#63;&#62;" class="large-text code rt-code-sc">
         </p>';
 		$html .= '</div></div>';
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
@@ -183,7 +183,11 @@ class AddMetaBox {
 			return $post_id;
 		}
 
-		if ( rtbr()->getPostType() != $post->post_type ) {
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return $post_id;
+		}
+
+		if ( rtbr()->getPostType() !== $post->post_type ) {
 			return $post_id;
 		}
 

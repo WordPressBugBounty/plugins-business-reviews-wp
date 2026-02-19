@@ -3,7 +3,7 @@
 namespace Rtbr\Models;
 
 use Rtbr\Helpers\Functions;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class BusinessInfo {
 
 	private $id;

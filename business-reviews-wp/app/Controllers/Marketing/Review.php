@@ -1,7 +1,7 @@
 <?php
 
 namespace Rtbr\Controllers\Marketing;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Review {
 
 	public static function init() {
@@ -193,6 +193,9 @@ class Review {
 	public static function rtbr_spare_me() {
 
 		if ( ! isset( $_REQUEST['_wpnonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) ), 'rtbr_notice_nonce' ) ) {
+			return;
+		}
+		if ( ! current_user_can( 'manage_options' ) ) {
 			return;
 		}
 

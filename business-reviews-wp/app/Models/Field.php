@@ -1,6 +1,6 @@
 <?php
 namespace Rtbr\Models;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Field {
 	private $type;
 	private $name;

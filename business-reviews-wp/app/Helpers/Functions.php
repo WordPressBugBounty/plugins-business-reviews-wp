@@ -3,7 +3,7 @@
 namespace Rtbr\Helpers;
 
 use Rtbr\Models\Field;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Functions {
 
 	public static function verify_nonce() {
@@ -19,6 +19,28 @@ class Functions {
 	public static function get_nonce() {
         //phpcs:ignore WordPress.Security.NonceVerification.Recommended
 		return isset( $_REQUEST[ rtbr()->getNonceId() ] ) ? sanitize_text_field( wp_unslash( $_REQUEST[ rtbr()->getNonceId() ] ) ) : null;
+	}
+
+	public static function sanitize_css_dimension( $value ) {
+		if ( preg_match( '/^\d+(\.\d+)?(px|%|em|rem|vw|vh)?$/', $value ) ) {
+			return $value;
+		}
+		return '';
+	}
+
+	public static function sanitize_css_weight( $value ) {
+		$allowed = array( 'normal', 'bold', 'bolder', 'lighter', '100', '200', '300', '400', '500', '600', '700', '800', '900' );
+		return in_array( $value, $allowed, true ) ? $value : '';
+	}
+
+	public static function sanitize_css_align( $value ) {
+		$allowed = array( 'left', 'right', 'center', 'justify' );
+		return in_array( $value, $allowed, true ) ? $value : '';
+	}
+
+	public static function sanitize_css_color( $value ) {
+		$color = sanitize_hex_color( $value );
+		return $color ? $color : '';
 	}
 
 	public static function locate_template( $name ) {
@@ -123,7 +145,7 @@ class Functions {
 	 * @return bool|mixed|void
 	 */
 	static function get_option( $id ) {
-		if ( ! $id ) {
+		if ( ! $id ) {  // phpcs:disable
 			return false;
 		}
 		$settings = get_option( $id, [] );
@@ -272,7 +294,7 @@ class Functions {
 		if ( $style_tag ) {
 			$css .= '<style>';
 		}
-		if ( $value = $sc_meta['width'] ) {
+		if ( $value = self::sanitize_css_dimension( $sc_meta['width'] ) ) {
 			$css .= "#review-list-content-{$sc_id} { ";
 			$css .= 'width:' . $value . ';';
 			$css .= '}';
@@ -286,16 +308,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .rt-review-top .rt-author-title a, #review-list-content-{$sc_id} .rt-badge-tab-style .rt-review-top .rt-author-title { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -308,16 +330,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .rt-review-top .rt-author-title a:hover { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -336,16 +358,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .rt-author-title a { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -358,16 +380,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .rt-author-title a:hover { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -380,16 +402,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} p { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -402,16 +424,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .rating-text { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -424,16 +446,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .rt-time-ago { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -446,16 +468,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .rating-text span { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -468,16 +490,16 @@ class Functions {
 			$title_alignment = ( ! empty( $title['align'] ) ? $title['align'] : null );
 			$css            .= "#review-list-content-{$sc_id} .powerd-by { ";
 			if ( $title_color ) {
-				$css .= 'color:' . $title_color . ';';
+				$css .= 'color:' . self::sanitize_css_color( $title_color ) . ';';
 			}
 			if ( $title_size ) {
 				$css .= 'font-size:' . $title_size . 'px;';
 			}
 			if ( $title_weight ) {
-				$css .= 'font-weight:' . $title_weight . ';';
+				$css .= 'font-weight:' . self::sanitize_css_weight( $title_weight ) . ';';
 			}
 			if ( $title_alignment ) {
-				$css .= 'text-align:' . $title_alignment . ';';
+				$css .= 'text-align:' . self::sanitize_css_align( $title_alignment ) . ';';
 			}
 			$css .= '}';
 		}
@@ -624,7 +646,7 @@ class Functions {
 			$css .= 'background:' . $value . ';';
 			$css .= '}';
 		}
-		if ( $value = $sc_meta['btn_border_radius'] ) {
+		if ( $value = self::sanitize_css_dimension( $sc_meta['btn_border_radius'] ) ) {
 			$css .= "#review-list-content-{$sc_id} .rtbr-pagination.rt-loadmore-btn a { ";
 			$css .= 'border-radius:' . $value . ';';
 			$css .= '}';
@@ -659,7 +681,7 @@ class Functions {
 			$css .= 'border-color:' . $value . ';';
 			$css .= '}';
 		}
-		if ( $value = $sc_meta['btn_border_radius'] ) {
+		if ( $value = self::sanitize_css_dimension( $sc_meta['btn_border_radius'] ) ) {
 			$css .= "#review-list-content-{$sc_id} .rt-isotope-classes-tab .nav-item { ";
 			$css .= 'border-radius:' . $value . ';';
 			$css .= '}';

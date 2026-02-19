@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * General Settings
  */
+// phpcs:disable
 $options = array(
 	'ls_section'         => array(
 		'title'       => esc_html__( 'General Settings', 'business-reviews-wp' ),

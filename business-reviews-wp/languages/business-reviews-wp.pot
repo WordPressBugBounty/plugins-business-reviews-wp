@@ -1,4 +1,4 @@
-# Copyright (C) 2025 Business Reviews
+# Copyright (C) 2026 Business Reviews
 # This file is distributed under the same license as the Business Reviews package.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-06-23 10:29+0000\n"
+"POT-Creation-Date: 2026-02-19 09:32+0000\n"
 "X-Poedit-Basepath: ..\n"
 "X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -15,11 +15,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. translators: %s template
-#: ../app/Helpers/Functions.php:89
+#: ../app/Helpers/Functions.php:111
 msgid "%s does not exist."
 msgstr ""
 
-#: ../app/Hooks/Backend.php:18, ../app/Controllers/Admin/AdminSettings.php:24, ../app/Controllers/Admin/AdminSettings.php:25, ../app/Controllers/Admin/Meta/AddMetaBox.php:152
+#: ../app/Hooks/Backend.php:18, ../app/Controllers/Admin/AdminSettings.php:25, ../app/Controllers/Admin/AdminSettings.php:26, ../app/Controllers/Admin/Meta/AddMetaBox.php:152
 msgid "Settings"
 msgstr ""
 
@@ -135,11 +135,11 @@ msgstr ""
 msgid " ago"
 msgstr ""
 
-#: ../app/Models/SettingsAPI.php:87, ../app/Controllers/Admin/AdminSettings.php:63
+#: ../app/Models/SettingsAPI.php:87, ../app/Controllers/Admin/AdminSettings.php:64
 msgid "Action failed. Please refresh the page and retry."
 msgstr ""
 
-#: ../app/Models/SettingsAPI.php:106, ../app/Controllers/Admin/AdminSettings.php:68
+#: ../app/Models/SettingsAPI.php:106, ../app/Controllers/Admin/AdminSettings.php:72
 msgid "Your settings have been saved."
 msgstr ""
 
@@ -171,23 +171,23 @@ msgstr ""
 msgid "A list of Business Review."
 msgstr ""
 
-#: ../app/Controllers/Admin/AdminSettings.php:78
+#: ../app/Controllers/Admin/AdminSettings.php:82
 msgid "General"
 msgstr ""
 
-#: ../app/Controllers/Admin/AdminSettings.php:79, ../app/Controllers/Admin/Meta/MetaOptions.php:364
+#: ../app/Controllers/Admin/AdminSettings.php:83, ../app/Controllers/Admin/Meta/MetaOptions.php:365
 msgid "Google"
 msgstr ""
 
-#: ../app/Controllers/Admin/AdminSettings.php:80, ../app/Controllers/Admin/Meta/MetaOptions.php:365
+#: ../app/Controllers/Admin/AdminSettings.php:84, ../app/Controllers/Admin/Meta/MetaOptions.php:366
 msgid "Facebook"
 msgstr ""
 
-#: ../app/Controllers/Admin/AdminSettings.php:81, ../app/Controllers/Admin/Meta/MetaOptions.php:366
+#: ../app/Controllers/Admin/AdminSettings.php:85, ../app/Controllers/Admin/Meta/MetaOptions.php:367
 msgid "Yelp"
 msgstr ""
 
-#: ../app/Controllers/Admin/AdminSettings.php:82
+#: ../app/Controllers/Admin/AdminSettings.php:86
 msgid "Support"
 msgstr ""
 
@@ -249,8 +249,12 @@ msgstr ""
 msgid "Shortcode"
 msgstr ""
 
-#: ../app/Controllers/Ajax/Facebook.php:19
+#: ../app/Controllers/Ajax/Facebook.php:31
 msgid "An error occurred while retrieving the information."
+msgstr ""
+
+#: ../app/Controllers/Ajax/Facebook.php:28
+msgid "Invalid response from Facebook."
 msgstr ""
 
 #: ../app/Controllers/Marketing/Offer.php:66
@@ -301,7 +305,7 @@ msgstr ""
 msgid "Get Support"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/AddMetaBox.php:150, ../app/Controllers/Admin/Meta/MetaOptions.php:157
+#: ../app/Controllers/Admin/Meta/AddMetaBox.php:150, ../app/Controllers/Admin/Meta/MetaOptions.php:158
 msgid "Layout"
 msgstr ""
 
@@ -313,199 +317,199 @@ msgstr ""
 msgid "Style"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:114
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:115
 msgid "Character"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:115
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:116
 msgid "Word"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:122
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:123
 msgid "Logo"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:123
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:124
 msgid "Name"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:124
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:125
 msgid "Average Rating"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:125, ../app/Controllers/Admin/Meta/MetaOptions.php:136
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:126, ../app/Controllers/Admin/Meta/MetaOptions.php:137
 msgid "Rating Star"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:126
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:127
 msgid "Total Review"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:127
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:128
 msgid "Powered By Logo"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:134
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:135
 msgid "Author Image"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:135
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:136
 msgid "Author Name"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:137
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:138
 msgid "Time"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:138
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:139
 msgid "Review"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:148
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:149
 msgid "Review type"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:165
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:166
 msgid "Grid column"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:174
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:175
 msgid "Pagination"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:177
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:178
 msgid "Enable"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:182
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:183
 msgid "Review per pagination"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:186
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:187
 msgid "If value of Limit setting is not blank (empty), this value should be smaller than Limit value."
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:194
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:195
 msgid "Review display limit"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:198
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:199
 msgid "Maxmum Limit"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:204
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:205
 msgid "Review text limit"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:205
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:206
 msgid "Review text limit only integer number is allowed, Leave it blank for full review."
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:211
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:212
 msgid "Review text limit type"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:218
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:219
 msgid "Read more text"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:232
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:233
 msgid "Hide business info?"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:233
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:234
 msgid "Show only reviews"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:235, ../app/Controllers/Admin/Meta/MetaOptions.php:262
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:236, ../app/Controllers/Admin/Meta/MetaOptions.php:263
 msgid "Hide"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:240
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:241
 msgid "Business info field"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:250
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:251
 msgid "Review field"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:260
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:261
 msgid "Hide see all review link?"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:274
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:275
 msgid "Open links in new window"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:275, ../app/Controllers/Admin/Meta/MetaOptions.php:282
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:276, ../app/Controllers/Admin/Meta/MetaOptions.php:283
 msgid "Disable"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:281
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:282
 msgid "Use no follow links"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:296
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:297
 msgid "Parent class for adding custom css"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:303
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:304
 msgid "Width"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:304
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:305
 msgid "Layout width, pass value like (400px, 50%)"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:309
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:310
 msgid "Author name"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:314
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:315
 msgid "Author name hover"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:321
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:322
 msgid "Google star color"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:329
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:330
 msgid "Facebook star color"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:337
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:338
 msgid "Yelp star color"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:346
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:347
 msgid "Grid One"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:347
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:348
 msgid "List One"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:354
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:355
 msgid "Column 1"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:355
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:356
 msgid "Column 2"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:356
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:357
 msgid "Column 3"
 msgstr ""
 
-#: ../app/Controllers/Admin/Meta/MetaOptions.php:357
+#: ../app/Controllers/Admin/Meta/MetaOptions.php:358
 msgid "Column 4"
 msgstr ""
 
-#: ../templates/partials/pagination.php:26
+#: ../templates/partials/pagination.php:27
 msgid "Load More"
 msgstr ""
 
-#: ../templates/partials/pagination.php:31
+#: ../templates/partials/pagination.php:32
 msgid "See All Reviews"
 msgstr ""
 
@@ -545,79 +549,79 @@ msgstr ""
 msgid "Custom Page Image"
 msgstr ""
 
-#: ../views/settings/general-settings.php:12
+#: ../views/settings/general-settings.php:13
 msgid "General Settings"
 msgstr ""
 
-#: ../views/settings/general-settings.php:17
+#: ../views/settings/general-settings.php:18
 msgid "Save Data To Database"
 msgstr ""
 
-#: ../views/settings/general-settings.php:20
+#: ../views/settings/general-settings.php:21
 msgid "Uncheck to get always live data"
 msgstr ""
 
-#: ../views/settings/general-settings.php:23
+#: ../views/settings/general-settings.php:24
 msgid "Auto Refresh Reviews"
 msgstr ""
 
-#: ../views/settings/general-settings.php:24
+#: ../views/settings/general-settings.php:25
 msgid "Auto refresh reviews every"
 msgstr ""
 
-#: ../views/settings/general-settings.php:29
+#: ../views/settings/general-settings.php:30
 msgid "6 Hours"
 msgstr ""
 
-#: ../views/settings/general-settings.php:30
+#: ../views/settings/general-settings.php:31
 msgid "12 Hours"
 msgstr ""
 
-#: ../views/settings/general-settings.php:31
+#: ../views/settings/general-settings.php:32
 msgid "1 Day"
 msgstr ""
 
-#: ../views/settings/general-settings.php:32
+#: ../views/settings/general-settings.php:33
 msgid "1 Week"
 msgstr ""
 
-#: ../views/settings/general-settings.php:33
+#: ../views/settings/general-settings.php:34
 msgid "15 Days"
 msgstr ""
 
-#: ../views/settings/general-settings.php:34
+#: ../views/settings/general-settings.php:35
 msgid "1 Month"
 msgstr ""
 
-#: ../views/settings/general-settings.php:35
+#: ../views/settings/general-settings.php:36
 msgid "6 Months"
 msgstr ""
 
-#: ../views/settings/general-settings.php:36
+#: ../views/settings/general-settings.php:37
 msgid "1 Year"
 msgstr ""
 
-#: ../views/settings/google-settings.php:12
+#: ../views/settings/google-settings.php:13
 msgid "Google API Settings"
 msgstr ""
 
-#: ../views/settings/google-settings.php:18
+#: ../views/settings/google-settings.php:19
 msgid "Google Place API Key"
 msgstr ""
 
-#: ../views/settings/google-settings.php:20
+#: ../views/settings/google-settings.php:21
 msgid "You can get Google Place API key from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/docs/google-settings/how-to-get-google-places-api-key/\">here</a>"
 msgstr ""
 
-#: ../views/settings/google-settings.php:33
+#: ../views/settings/google-settings.php:34
 msgid "Google Place ID"
 msgstr ""
 
-#: ../views/settings/google-settings.php:35
+#: ../views/settings/google-settings.php:36
 msgid "You can get Google place id from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/docs/google-settings/how-to-get-google-places-id/\">here</a>"
 msgstr ""
 
-#: ../views/settings/google-settings.php:48
+#: ../views/settings/google-settings.php:49
 msgid "Custom Place Image"
 msgstr ""
 
@@ -641,38 +645,38 @@ msgstr ""
 msgid "Main plugin license key"
 msgstr ""
 
-#: ../views/settings/yelp-settings.php:14
+#: ../views/settings/yelp-settings.php:15
 msgid "Yelp API Settings"
 msgstr ""
 
-#: ../views/settings/yelp-settings.php:19
+#: ../views/settings/yelp-settings.php:20
 msgid "Yelp API Key"
 msgstr ""
 
-#: ../views/settings/yelp-settings.php:21
+#: ../views/settings/yelp-settings.php:22
 msgid "You can get Yelp API key from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/configurations/yelp-settings/how-to-create-yelp-api-key\">here</a>"
 msgstr ""
 
-#: ../views/settings/yelp-settings.php:34
+#: ../views/settings/yelp-settings.php:35
 msgid "Yelp Business URL"
 msgstr ""
 
-#: ../views/settings/yelp-settings.php:36
+#: ../views/settings/yelp-settings.php:37
 msgid "You can get Yelp Business URL from <a target=\"_blank\" href=\"https://www.radiustheme.com/docs/business-reviews/configurations/yelp-settings/how-to-get-yelp-business-url\">here</a>"
 msgstr ""
 
-#: ../views/settings/yelp-settings.php:49
+#: ../views/settings/yelp-settings.php:50
 msgid "Custom Business Image"
 msgstr ""
 
-#: ../views/widgets/business-review.php:2
+#: ../views/widgets/business-review.php:6
 msgid "Title:"
 msgstr ""
 
-#: ../views/widgets/business-review.php:7
+#: ../views/widgets/business-review.php:11
 msgid "Select Shortcode:"
 msgstr ""
 
-#: ../views/widgets/business-review.php:9
+#: ../views/widgets/business-review.php:13
 msgid "Select"
 msgstr ""

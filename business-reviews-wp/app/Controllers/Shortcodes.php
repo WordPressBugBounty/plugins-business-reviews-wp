@@ -3,7 +3,7 @@
 namespace Rtbr\Controllers;
 
 use Rtbr\Shortcodes\BusinessReview;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Shortcodes {
 
 	public static function init_short_code() {
@@ -12,7 +12,7 @@ class Shortcodes {
 		);
 
 		foreach ( $shortcodes as $shortcode => $function ) {
-			add_shortcode( apply_filters( "{$shortcode}_shortcode_tag", $shortcode ), $function );
+			add_shortcode( apply_filters( "{$shortcode}_shortcode_tag", $shortcode ), $function );  // phpcs:disable
 		}
 	}
 

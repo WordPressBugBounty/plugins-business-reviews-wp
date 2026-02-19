@@ -1,7 +1,7 @@
 <?php
 
 namespace Rtbr\Controllers\Marketing;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Offer {
 	public function __construct() {
 		add_action(

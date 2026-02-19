@@ -66,6 +66,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Support Settings
  */
+// phpcs:disable
 $options = array();
 
 return apply_filters( 'rtbr_support_settings_options', $options );

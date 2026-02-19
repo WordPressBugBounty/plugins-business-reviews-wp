@@ -3,7 +3,7 @@
 namespace Rtbr\Controllers\Admin;
 
 use Rtbr\Helpers\Functions;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Activation {
 
 	public function __construct() {
@@ -19,7 +19,8 @@ class Activation {
 	function plugin_redirect() {
 		if ( get_option( 'rtbr_activation_redirect', false ) ) {
 			delete_option( 'rtbr_activation_redirect' );
-			wp_redirect( admin_url( 'edit.php?post_type=rtbr&page=rtbr-settings&tab=support' ) );
+			wp_safe_redirect( admin_url( 'edit.php?post_type=rtbr&page=rtbr-settings&tab=support' ) );
+			exit();
 		}
 	}
 

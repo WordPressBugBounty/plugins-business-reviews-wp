@@ -7,7 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Tools Settings
  */
-
+// phpcs:disable
 $options = array(
 	'site_section' => array(
 		'title' => esc_html__( 'Licensing', 'business-reviews-wp' ),

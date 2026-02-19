@@ -1,7 +1,7 @@
 <?php
 
 namespace Rtbr\Widgets;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class BusinessReview extends \WP_Widget {
 
 	protected $widget_slug;

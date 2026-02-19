@@ -3,7 +3,7 @@
 namespace Rtbr\Models;
 
 use Rtbr\Helpers\Functions;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 abstract class SettingsAPI {
 
 	/**
@@ -663,14 +663,14 @@ abstract class SettingsAPI {
 									action: "rtbr_fb_page_access_token", 
 									user_id: userID, 
 									access_token: accessToken, 
-									nonce: "secrect_nonce"
+									nonce: "<?php echo esc_js( wp_create_nonce( 'rtbr-fb-nonce' ) ); ?>"
 								},
 								beforeSend: function() { 
 								},
-								success: function(resp) { 
-									let page_name = resp.data[0].name;
-									let page_access_token = resp.data[0].access_token;
-									let page_id = resp.data[0].id;
+								success: function(resp) {
+									let page_name = resp.data.data[0].name;
+									let page_access_token = resp.data.data[0].access_token;
+									let page_id = resp.data.data[0].id;
 									jQuery("#rtbr_facebook_settings-page_access_token").val(page_access_token);
 									jQuery("#rtbr_facebook_settings-page_name").val(page_name);
 									jQuery("#rtbr_facebook_settings-page_id").val(page_id); 

@@ -1,7 +1,7 @@
 <?php
 
 namespace Rtbr\Controllers\Admin;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class RegisterPostType {
 
 	public function __construct() {

@@ -4,7 +4,7 @@ namespace Rtbr\Models;
 
 use Rtbr\Helpers\Functions;
 use Rtbr\Models\BusinessInfo;
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 class Review {
 	private $id;
 	private $shortcode_id;
@@ -186,13 +186,13 @@ class Review {
 			}
 
 			if ( strlen( $this->description ) <= strlen( $display_text ) ) {
-				return $this->description;
+				return esc_html( $this->description );
 			} else {
 				$extra_space = ( $limit_type == 'word' ) ? ' ' : '';
-				return $display_text . " <a href='#' class='rtbr-read-more'>" . $read_more_text . "</a><span class='rtbr-full-review'>" . $extra_space . $hidden_text . '</span>';
+				return esc_html( $display_text ) . " <a href='#' class='rtbr-read-more'>" . esc_html( $read_more_text ) . "</a><span class='rtbr-full-review'>" . $extra_space . esc_html( $hidden_text ) . '</span>';
 			}
 		} else {
-			return $this->description;
+			return esc_html( $this->description );
 		}
 	}
 

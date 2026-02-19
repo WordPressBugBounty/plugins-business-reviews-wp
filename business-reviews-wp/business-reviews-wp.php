@@ -5,7 +5,7 @@
  * Plugin Name:       Widget for Google Reviews
  * Plugin URI:        https://www.radiustheme.com/demo/plugins/business-reviews
  * Description:       This is a business reviews plugin for Google, Facebook and Yelp
- * Version:           1.0.16
+ * Version:           1.0.17
  * Author:            RadiusTheme
  * Author URI:        https://radiustheme.com
  * License:           GPLv3

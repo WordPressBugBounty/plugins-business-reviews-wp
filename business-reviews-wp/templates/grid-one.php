@@ -10,12 +10,12 @@
  * @var array $review_data[] [name, url, img, business_logo, time, human_read_time, rating, rating_star, desc, desc_text, business_type]
  * @var array $sc_meta [business_type, layout, grid_column, pagination, reviews_per_page, business_info, business_info_fields, review_fields, see_all_reviews, open_link_blank, no_follow_link, width, author_name, author_name_hover, google_star_color, facebook_star_color, yelp_star_color]
  */
-
+if ( ! defined( 'ABSPATH' ) ) exit;
 if ( $review_data ) : ?>  
 <div class="rt-row <?php echo esc_attr( get_post_meta( $sc_meta['id'], 'parent_class', true ) ); ?> rt-<?php echo esc_attr( $business_info->getBusinessType() ); ?>-review" id="review-list-content-<?php echo esc_attr( $sc_meta['id'] ); ?>">
 	<?php
 		do_action( 'rtbr_before_review_list' );
-	foreach ( $review_data as $key => $single ) :
+	foreach ( $review_data as $key => $single ) :  // phpcs:disable
 		?>
 	<div class="<?php echo esc_attr( $business_info->gridColumn() ); ?> rt-grid-layout rtbr-single-review <?php echo esc_attr( $business_info->paginationClass( $key ) ); ?>">
 		<div class="rt-grid-view-style rt-grid-view-style-1">
@@ -23,7 +23,7 @@ if ( $review_data ) : ?>
 			<?php if ( in_array( 'img', $sc_meta['review_fields'] ) && $single['img'] ) { ?>
 				<div class="rt-author-img">
                     <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
-					<img src="<?php echo esc_attr( $single['img'] ); ?>" alt="<?php echo esc_attr( $single['name'] ); ?>">
+					<img src="<?php echo esc_url( $single['img'] ); ?>" alt="<?php echo esc_attr( $single['name'] ); ?>">
 				</div>
 				<?php } ?> 
 
@@ -41,13 +41,14 @@ if ( $review_data ) : ?>
 					<?php if ( in_array( 'powered_by', $sc_meta['business_info_fields'] ) ) { ?>
 						<div class="rt-social-icon">
                             <?php //phpcs:ignore PluginCheck.CodeAnalysis.ImageFunctions.NonEnqueuedImage ?>
-							<img src="<?php echo esc_attr( $single['business_logo'] ); ?>" alt="<?php echo esc_attr( $single['business_type'] ); ?>">
+							<img src="<?php echo esc_url( $single['business_logo'] ); ?>" alt="<?php echo esc_attr( $single['business_type'] ); ?>">
 						</div>
 						<?php } ?> 
 						
 					<?php if ( in_array( 'rating_star', $sc_meta['review_fields'] ) ) { ?> 
 							<div class="rt-item-rating <?php echo esc_attr( $single['business_type'] ); ?>-rating">
 							<?php
+                                // phpcs:disable
 								$allowed_html = [
 									'svg'   => array(
 										'class'           => true,

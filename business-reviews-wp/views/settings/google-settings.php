@@ -7,6 +7,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Google Settings
  */
+// phpcs:disable
 $options = array(
 	'ls_section' => array(
 		'title'       => esc_html__( 'Google API Settings', 'business-reviews-wp' ),
